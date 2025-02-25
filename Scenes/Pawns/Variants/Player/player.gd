@@ -12,11 +12,11 @@ const MOVEMENTS: Dictionary = {
 var input_history: Array[String] = []
 
 func _ready() -> void:
-	print(manager.get_pawns_at(manager.get_converted_pos(position))[0].name)
+	print(manager.get_pawns_at(Utils.snapped_pos(position))[0].name)
 
 func _tween_pos_done():
 	super()
-	print(manager.get_pawns_at(manager.get_converted_pos(position)))
+	print(manager.get_pawns_at(Utils.snapped_pos(position)))
 
 func _process(_delta):
 	input_priority()

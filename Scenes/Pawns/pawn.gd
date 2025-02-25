@@ -9,6 +9,7 @@ var is_moving: bool
 var cur_direction: Vector2i = Vector2i.DOWN
 
 @onready var manager: PawnManager = get_parent()
+@onready var coll_pos: Vector2i = Utils.snapped_pos(position)
 
 func can_move() -> bool:
 	return not is_moving
@@ -26,11 +27,13 @@ func _tween_pos_done():
 	is_moving = false
 	
 func space_free(dir: Vector2i):
-	return manager.coll_manager.get_cell_source_id(Vector2i(floor(position/16.0))+dir) == -1 and manager.pawn_coll_manager.get_cell_source_id(manager.get_converted_pos(position)+dir) == -1
+	return manager.coll_manager.get_cell_source_id(Vector2i(floor(position/16.0))+dir) == -1 and manager.pawn_coll_manager.get_cell_source_id(Utils.snapped_pos(position)+dir) == -1
 	
 func move_by(dir: Vector2i):
-	manager.pawn_coll_manager.set_cell(manager.get_converted_pos(position),-1,Vector2i.ZERO)
-	manager.pawn_coll_manager.set_cell(manager.get_converted_pos(position)+dir,1,Vector2i.ZERO)
+	var snapped_pos = Utils.snapped_pos(position)
+	manager.pawn_coll_manager.set_cell(snapped_pos,-1,Vector2i.ZERO)
+	manager.pawn_coll_manager.set_cell(snapped_pos+dir,1,Vector2i.ZERO)
+	coll_pos = snapped_pos+dir
 	tween_pos(position+Vector2(dir*16))
 
 func check_and_move_by(dir: Vector2i):
@@ -38,6 +41,7 @@ func check_and_move_by(dir: Vector2i):
 		move_by(dir)
 
 func move_to(where: Vector2i):
-	manager.pawn_coll_manager.set_cell(manager.get_converted_pos(position),-1,Vector2i.ZERO)
-	manager.pawn_coll_manager.set_cell(manager.get_converted_pos(where),1,Vector2i.ZERO)
+	manager.pawn_coll_manager.set_cell(Utils.snapped_pos(position),-1,Vector2i.ZERO)
+	manager.pawn_coll_manager.set_cell(where,1,Vector2i.ZERO)
+	coll_pos = where
 	tween_pos(Vector2(where*16))

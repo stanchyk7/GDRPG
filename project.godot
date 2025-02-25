@@ -19,6 +19,9 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameStateService="*res://addons/game_state_saver/game_state_service.gd"
+Constants="*res://Globals/Constants.gd"
+Utils="*res://Globals/Utils.gd"
+Variables="*res://Globals/Variables.gd"
 
 [display]
 
