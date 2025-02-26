@@ -5,6 +5,9 @@ class_name PawnManager
 @export var pawn_coll_manager: TileMapLayer
 
 func _ready() -> void:
+	GameStateService.state_load_completed.connect(_on_state_loaded)
+
+func _on_state_loaded() -> void:
 	var tmaps = get_parent().get_node("Tilemaps").get_children() # Get tilemaps
 	for tmap in tmaps:
 		var cells = tmap.get_used_cells().filter(func(e): return tmap.get_cell_tile_data(e).get_custom_data("collision") == 1) # Get cells for collision

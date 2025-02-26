@@ -1,7 +1,59 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2lsq21w8wqee"]
+[gd_scene load_steps=3 format=3 uid="uid://d2lsq21w8wqee"]
 
-[ext_resource type="PackedScene" uid="uid://desp8rgxud3dy" path="res://Scenes/Maps/world.tscn" id="1_dql46"]
+[ext_resource type="PackedScene" uid="uid://bncdy1bm3g2c4" path="res://Scenes/Menus/main_menu.tscn" id="1_xh43y"]
+[ext_resource type="Script" path="res://pause.gd" id="2_5oy7y"]
 
 [node name="Game" type="Node2D"]
 
-[node name="World" parent="." instance=ExtResource("1_dql46")]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(320, 240)
+render_target_update_mode = 4
+
+[node name="main_menu" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_xh43y")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="pause" type="Control" parent="CanvasLayer"]
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 240.0
+mouse_filter = 2
+script = ExtResource("2_5oy7y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/pause"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -101.0
+offset_right = 96.0
+grow_vertical = 0
+
+[node name="resume" type="Button" parent="CanvasLayer/pause/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="save" type="Button" parent="CanvasLayer/pause/VBoxContainer"]
+layout_mode = 2
+text = "Save Game"
+
+[node name="load" type="Button" parent="CanvasLayer/pause/VBoxContainer"]
+layout_mode = 2
+text = "Load Game"
+
+[node name="to_menu" type="Button" parent="CanvasLayer/pause/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[connection signal="pressed" from="CanvasLayer/pause/VBoxContainer/resume" to="CanvasLayer/pause" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/pause/VBoxContainer/save" to="CanvasLayer/pause" method="_on_save_pressed"]
+[connection signal="pressed" from="CanvasLayer/pause/VBoxContainer/load" to="CanvasLayer/pause" method="_on_load_pressed"]
+[connection signal="pressed" from="CanvasLayer/pause/VBoxContainer/to_menu" to="CanvasLayer/pause" method="_on_to_menu_pressed"]

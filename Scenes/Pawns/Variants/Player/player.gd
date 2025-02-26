@@ -23,6 +23,10 @@ func _process(_delta):
 	
 	if can_move():
 		
+		if Input.is_action_just_pressed("ui_cancel"):
+			$/root/Game/CanvasLayer/pause.visible = true
+			get_tree().paused = true
+		
 		var input_direction: Vector2i = set_direction()
 		if input_direction:
 			cur_direction = input_direction

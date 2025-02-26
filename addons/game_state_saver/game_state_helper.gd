@@ -165,5 +165,3 @@ func _exit_tree() -> void:
 	var save_freed_object := SaveFreedInstancedChildScene.new(id, id)
 	
 	emit_signal("instanced_child_scene_freed", save_freed_object)
-
-
