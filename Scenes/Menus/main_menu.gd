@@ -1,5 +1,8 @@
 extends Control
 
+func _ready():
+	$VBoxContainer/new_game.grab_focus()
+
 func _on_new_game_pressed() -> void:
 	GameStateService.new_game()
 	var wrld = load("res://Scenes/Maps/world.tscn").instantiate()

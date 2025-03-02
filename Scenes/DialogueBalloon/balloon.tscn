@@ -1,0 +1,86 @@
+[gd_scene load_steps=5 format=3 uid="uid://drocfp7xc5mlh"]
+
+[ext_resource type="Script" path="res://Scenes/DialogueBalloon/balloon.gd" id="1_s2gbs"]
+[ext_resource type="Theme" uid="uid://bpwrfls6uwofv" path="res://Graphics/theme.tres" id="2_e1cu2"]
+[ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_hfvdi"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="3_1j1j0"]
+
+[node name="ExampleBalloon" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_s2gbs")
+
+[node name="Balloon" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_e1cu2")
+
+[node name="MarginContainer" type="MarginContainer" parent="Balloon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Balloon/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Balloon/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CharacterPanel" type="PanelContainer" parent="Balloon/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="Balloon/MarginContainer/VBoxContainer/HBoxContainer/CharacterPanel"]
+layout_mode = 2
+
+[node name="CharacterLabel" type="RichTextLabel" parent="Balloon/MarginContainer/VBoxContainer/HBoxContainer/CharacterPanel/MarginContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Llanfair­pwllgwyngyll­gogery­chwyrn­drobwll­llan­tysilio­gogo­goch"
+fit_content = true
+scroll_active = false
+
+[node name="Responses" type="MarginContainer" parent="Balloon/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResponsesMenu" type="VBoxContainer" parent="Balloon/MarginContainer/VBoxContainer/HBoxContainer/Responses"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 2
+script = ExtResource("3_1j1j0")
+
+[node name="ResponseExample" type="Button" parent="Balloon/MarginContainer/VBoxContainer/HBoxContainer/Responses/ResponsesMenu"]
+layout_mode = 2
+text = "Response Example"
+alignment = 0
+
+[node name="DialoguePanel" type="PanelContainer" parent="Balloon/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Balloon/MarginContainer/VBoxContainer/DialoguePanel"]
+layout_mode = 2
+
+[node name="DialogueLabel" parent="Balloon/MarginContainer/VBoxContainer/DialoguePanel/MarginContainer" instance=ExtResource("2_hfvdi")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Mężny bądź, chroń pułk twój i sześć flag. Zażółć Gęślą Jaźń."
+
+[connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
+[connection signal="response_selected" from="Balloon/MarginContainer/VBoxContainer/HBoxContainer/Responses/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]

@@ -5,14 +5,17 @@ class_name Pawn
 @export var speed := 1.0
 
 var move_tween: Tween
-var is_moving: bool
 var cur_direction: Vector2i = Vector2i.DOWN
+
+var is_moving: bool = false
+var is_talking: bool = false
+var is_stopped: bool = false
 
 @onready var manager: PawnManager = get_parent()
 @onready var coll_pos: Vector2i = Utils.snapped_pos(position)
 
 func can_move() -> bool:
-	return not is_moving
+	return not is_moving and not is_talking and not is_stopped
 
 func tween_pos(new_pos: Vector2):
 	is_moving = true
@@ -29,17 +32,19 @@ func _tween_pos_done():
 func space_free(dir: Vector2i):
 	return manager.coll_manager.get_cell_source_id(Utils.snapped_pos(position)+dir) == -1 and (manager.pawn_coll_manager.get_cell_source_id(Utils.snapped_pos(position)+dir) == -1 or not collidable)
 	
-func move_by(dir: Vector2i):
+func force_move_by(dir: Vector2i):
 	var snapped_pos = Utils.snapped_pos(position)
 	if collidable:
 		manager.pawn_coll_manager.set_cell(snapped_pos,-1,Vector2i.ZERO)
 		manager.pawn_coll_manager.set_cell(snapped_pos+dir,1,Vector2i.ZERO)
 	coll_pos = snapped_pos+dir
 	tween_pos(position+Vector2(dir*16))
+	await move_tween.finished
 
-func check_and_move_by(dir: Vector2i):
+func move_by(dir: Vector2i):
 	if space_free(dir):
-		move_by(dir)
+		force_move_by(dir)
+		await move_tween.finished
 
 func move_to(where: Vector2i):
 	if collidable:
@@ -47,3 +52,8 @@ func move_to(where: Vector2i):
 		manager.pawn_coll_manager.set_cell(where,1,Vector2i.ZERO)
 	coll_pos = where
 	tween_pos(Utils.unsnapped_pos(where))
+	
+func wait():
+	is_stopped = true
+	await get_tree().create_timer(1.0).timeout
+	is_stopped = false

@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bncdy1bm3g2c4"]
+[gd_scene load_steps=4 format=3 uid="uid://bncdy1bm3g2c4"]
 
+[ext_resource type="Theme" uid="uid://bpwrfls6uwofv" path="res://Graphics/theme.tres" id="1_m3drl"]
 [ext_resource type="Script" path="res://Scenes/Menus/main_menu.gd" id="1_p8df5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rwhaw"]
-font_size = 40
+font_size = 44
 
 [node name="main_menu" type="Control"]
 layout_mode = 3
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_m3drl")
 script = ExtResource("1_p8df5")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -36,14 +38,18 @@ horizontal_alignment = 1
 
 [node name="new_game" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../load_game")
 text = "New Game"
 
 [node name="load_game" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../new_game")
+focus_neighbor_bottom = NodePath("../quit")
 text = "Load Game"
 
 [node name="quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../load_game")
 text = "Quit"
 
 [connection signal="pressed" from="VBoxContainer/new_game" to="." method="_on_new_game_pressed"]

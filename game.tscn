@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2lsq21w8wqee"]
+[gd_scene load_steps=4 format=3 uid="uid://d2lsq21w8wqee"]
 
 [ext_resource type="PackedScene" uid="uid://bncdy1bm3g2c4" path="res://Scenes/Menus/main_menu.tscn" id="1_xh43y"]
-[ext_resource type="Script" path="res://pause.gd" id="2_5oy7y"]
+[ext_resource type="Script" path="res://Scenes/Menus/pause.gd" id="2_5oy7y"]
+[ext_resource type="Theme" uid="uid://bpwrfls6uwofv" path="res://Graphics/theme.tres" id="2_mwaka"]
 
 [node name="Game" type="Node2D"]
 
@@ -23,9 +24,12 @@ process_mode = 2
 visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_right = 320.0
-offset_bottom = 240.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 315.0
+offset_bottom = 235.0
 mouse_filter = 2
+theme = ExtResource("2_mwaka")
 script = ExtResource("2_5oy7y")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/pause"]
@@ -33,24 +37,30 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -101.0
-offset_right = 96.0
+offset_top = -108.0
+offset_right = 70.0
 grow_vertical = 0
 
 [node name="resume" type="Button" parent="CanvasLayer/pause/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../save")
 text = "Resume"
 
 [node name="save" type="Button" parent="CanvasLayer/pause/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../resume")
+focus_neighbor_bottom = NodePath("../load")
 text = "Save Game"
 
 [node name="load" type="Button" parent="CanvasLayer/pause/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../save")
+focus_neighbor_bottom = NodePath("../to_menu")
 text = "Load Game"
 
 [node name="to_menu" type="Button" parent="CanvasLayer/pause/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../load")
 text = "Main Menu"
 
 [connection signal="pressed" from="CanvasLayer/pause/VBoxContainer/resume" to="CanvasLayer/pause" method="_on_resume_pressed"]

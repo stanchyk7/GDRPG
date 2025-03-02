@@ -1,0 +1,19 @@
+~ start
+Nathan: [[Hi|Hello|Howdy]], this is some dialogue.
+Nathan: Here are some choices.
+- First one
+	Nathan: You picked the first one.
+- Second one
+	Nathan: You picked the second one.
+- Start again => start
+- End the conversation => END
+Nathan: For more information see the online documentation.
+Nathan: Now make a circle for me.
+do wait(1.0)
+do Utils.manager().get_pawn_by_name("Player").move_by(Vector2.UP)
+do Utils.manager().get_pawn_by_name("Player").move_by(Vector2.RIGHT)
+do Utils.manager().get_pawn_by_name("Player").move_by(Vector2.DOWN)
+do Utils.manager().get_pawn_by_name("Player").move_by(Vector2.LEFT)
+do wait(1.0)
+Nathan: Okay, carry on.
+=> END

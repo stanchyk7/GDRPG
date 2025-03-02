@@ -13,10 +13,21 @@ var input_history: Array[String] = []
 
 func _ready() -> void:
 	print(manager.get_pawns_at(Utils.snapped_pos(position))[0].name)
+	
+func get_ev_dialogue(ev: Array):
+	if ev: 
+		ev[0].trigger_dialogue()
+		is_talking = true
+		ev[0].is_talking = true
+		await DialogueManager.dialogue_ended
+		await get_tree().create_timer(0.01).timeout
+		is_talking = false
+		ev[0].is_talking = false
 
 func _tween_pos_done():
 	super()
-	print(manager.get_pawns_at(Utils.snapped_pos(position)))
+	var ev = manager.get_talkable_pawns_at(Utils.snapped_pos(position), 1)
+	get_ev_dialogue(ev)
 
 func _process(_delta):
 	input_priority()
@@ -25,12 +36,16 @@ func _process(_delta):
 		
 		if Input.is_action_just_pressed("ui_cancel"):
 			$/root/Game/CanvasLayer/pause.visible = true
+			$/root/Game/CanvasLayer/pause/VBoxContainer/resume.grab_focus()
 			get_tree().paused = true
+		elif Input.is_action_just_pressed("ui_accept"):
+			var ev = manager.get_talkable_pawns_at(Utils.snapped_pos(position)+cur_direction, 0)
+			get_ev_dialogue(ev)
 		
 		var input_direction: Vector2i = set_direction()
 		if input_direction:
 			cur_direction = input_direction
-			check_and_move_by(cur_direction)
+			move_by(cur_direction)
 
 func input_priority():
 	# Input prioritie system, prioritize the latest inputs
