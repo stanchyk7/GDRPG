@@ -1,4 +1,4 @@
-extends Pawn
+extends PawnAnim
 class_name Player
 
 const MOVEMENTS: Dictionary = {
@@ -45,6 +45,7 @@ func _process(_delta):
 		var input_direction: Vector2i = set_direction()
 		if input_direction:
 			cur_direction = input_direction
+			set_anim_direction(cur_direction)
 			move_by(cur_direction)
 
 func input_priority():

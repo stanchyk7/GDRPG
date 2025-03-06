@@ -1,16 +1,16 @@
 [gd_scene load_steps=12 format=4 uid="uid://desp8rgxud3dy"]
 
-[ext_resource type="Script" path="res://Scenes/Pawns/pawn_manager.gd" id="1_1b3yd"]
-[ext_resource type="PackedScene" uid="uid://ckrd5k14iae5r" path="res://Scenes/Pawns/Variants/Player/player.tscn" id="1_ep713"]
+[ext_resource type="Script" uid="uid://dmmfss7d1va3v" path="res://Scenes/Pawns/pawn_manager.gd" id="1_1b3yd"]
+[ext_resource type="PackedScene" uid="uid://ckrd5k14iae5r" path="res://Scenes/Pawns/Variants/PawnAnim/player.tscn" id="1_ep713"]
 [ext_resource type="TileSet" uid="uid://otamr5lhwu4o" path="res://Graphics/tileset.tres" id="1_us7go"]
 [ext_resource type="PackedScene" uid="uid://ckjb27vmdsyhq" path="res://Scenes/Pawns/Variants/Event/Walker/walker.tscn" id="3_qt5fr"]
 [ext_resource type="Texture2D" uid="uid://ct6k0feqggovn" path="res://Graphics/tile.png" id="4_m68ou"]
-[ext_resource type="Script" path="res://addons/game_state_saver/game_state_helper.gd" id="5_jjle6"]
-[ext_resource type="Script" path="res://Scenes/Pawns/Variants/Event/Wanderer/wanderer.gd" id="6_uoqsa"]
+[ext_resource type="Script" uid="uid://ddex1fsjyv264" path="res://addons/game_state_saver/game_state_helper.gd" id="5_jjle6"]
+[ext_resource type="Script" uid="uid://b4eyifvw74ugf" path="res://Scenes/Pawns/Variants/Event/Wanderer/wanderer.gd" id="6_uoqsa"]
 [ext_resource type="Resource" uid="uid://cbsq58thth6ut" path="res://Dialogue/test.dialogue" id="7_153uk"]
 [ext_resource type="Texture2D" uid="uid://ejkjat2ktqfk" path="res://icon.svg" id="7_k182i"]
 [ext_resource type="TileSet" uid="uid://c5yrnubk0j57d" path="res://Graphics/Internal/internal.tres" id="10_jb4cg"]
-[ext_resource type="Script" path="res://Scenes/Maps/camera_2d.gd" id="11_6hr6o"]
+[ext_resource type="Script" uid="uid://b0ax07e0hopvk" path="res://Scenes/Maps/camera_2d.gd" id="11_6hr6o"]
 
 [node name="World" type="Node2D"]
 
@@ -75,6 +75,10 @@ speed = 1.0
 modulate = Color(1, 0, 0, 1)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("7_k182i")
+
+[node name="GameStateHelper" type="Node" parent="PawnManager/Event4"]
+script = ExtResource("5_jjle6")
+save_properties = Array[String](["position", "coll_pos", "cur_direction", "current_move"])
 
 [node name="Tilemaps" type="Node2D" parent="."]
 

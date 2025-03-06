@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c0x7q3jd5p4bk"]
 
-[ext_resource type="Script" path="res://addons/game_state_saver/demo/demo_title.gd" id="1_nvr7f"]
+[ext_resource type="Script" uid="uid://clfp1maa37od5" path="res://addons/game_state_saver/demo/demo_title.gd" id="1_nvr7f"]
 
 [sub_resource type="Gradient" id="Gradient_qi080"]
 
