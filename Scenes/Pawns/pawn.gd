@@ -13,6 +13,7 @@ var is_stopped: bool = false
 
 @onready var manager: PawnManager = get_parent()
 @onready var coll_pos: Vector2i = Utils.snapped_pos(position)
+@onready var actor: PawnAnim = get_node_or_null("Actor")
 
 func can_move() -> bool:
 	return not is_moving and not is_talking and not is_stopped
@@ -38,12 +39,17 @@ func force_move_by(dir: Vector2i):
 		manager.pawn_coll_manager.set_cell(snapped_pos,-1,Vector2i.ZERO)
 		manager.pawn_coll_manager.set_cell(snapped_pos+dir,1,Vector2i.ZERO)
 	coll_pos = snapped_pos+dir
-	tween_pos(position+Vector2(dir*16))
-	await move_tween.finished
+	if actor: actor.tween_pos(position+Vector2(dir*16))
+	else: 
+		tween_pos(position+Vector2(dir*16))
+		await move_tween.finished
 
 func move_by(dir: Vector2i):
 	if space_free(dir):
-		force_move_by(dir)
+		if actor: 
+			actor.force_move_by(dir) 
+		else: 
+			force_move_by(dir)
 		await move_tween.finished
 
 func move_to(where: Vector2i):
@@ -51,9 +57,21 @@ func move_to(where: Vector2i):
 		manager.pawn_coll_manager.set_cell(Utils.snapped_pos(position),-1,Vector2i.ZERO)
 		manager.pawn_coll_manager.set_cell(where,1,Vector2i.ZERO)
 	coll_pos = where
-	tween_pos(Utils.unsnapped_pos(where))
+	if actor: actor.tween_pos(Utils.unsnapped_pos(where))
+	else: tween_pos(Utils.unsnapped_pos(where))
 	
 func wait():
 	is_stopped = true
 	await get_tree().create_timer(1.0).timeout
 	is_stopped = false
+
+func change_sprite(new_texture: String):
+	if actor:
+		$Actor/Sprite2D.texture = null if new_texture.is_empty() else load("res://Graphics/"+new_texture)
+		return
+		
+	var spr: Sprite2D = get_node_or_null("./Sprite2D")
+	if not spr:
+		var new_spr := Sprite2D.new()
+		add_child(new_spr)
+	spr.texture = null if new_texture.is_empty() else load("res://Graphics/"+new_texture)

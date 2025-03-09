@@ -338,7 +338,7 @@ vframes = 4
 
 [node name="GameStateHelper" type="Node" parent="Sprite2D"]
 script = ExtResource("3_mjf17")
-save_properties = Array[String](["texture"])
+save_properties = Array[String](["texture", "frame"])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

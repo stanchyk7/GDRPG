@@ -1,4 +1,4 @@
-extends PawnAnim
+extends Pawn
 class_name Player
 
 const MOVEMENTS: Dictionary = {
@@ -12,17 +12,20 @@ const MOVEMENTS: Dictionary = {
 var input_history: Array[String] = []
 
 func _ready() -> void:
+	$GameStateHelper.loading_data.connect(_on_data_loaded)
 	print(manager.get_pawns_at(Utils.snapped_pos(position))[0].name)
+	
+func _on_data_loaded(data: Dictionary):
+	actor.set_anim_direction(cur_direction)
 	
 func get_ev_dialogue(ev: Array):
 	if ev: 
-		ev[0].trigger_dialogue()
 		is_talking = true
-		ev[0].is_talking = true
+		if ev[0].actor: ev[0].actor.set_anim_direction(-cur_direction)
+		ev[0].trigger_dialogue()
 		await DialogueManager.dialogue_ended
 		await get_tree().create_timer(0.01).timeout
 		is_talking = false
-		ev[0].is_talking = false
 
 func _tween_pos_done():
 	super()
@@ -45,7 +48,7 @@ func _process(_delta):
 		var input_direction: Vector2i = set_direction()
 		if input_direction:
 			cur_direction = input_direction
-			set_anim_direction(cur_direction)
+			if actor: actor.set_anim_direction(cur_direction)
 			move_by(cur_direction)
 
 func input_priority():

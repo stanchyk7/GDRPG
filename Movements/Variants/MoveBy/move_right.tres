@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MoveBy" load_steps=2 format=3 uid="uid://isriq6vhhdur"]
+
+[ext_resource type="Script" uid="uid://b8tfulyqbft8p" path="res://Movements/Variants/MoveBy/move_by.gd" id="1_h8ute"]
+
+[resource]
+script = ExtResource("1_h8ute")
+dir = Vector2i(1, 0)
+metadata/_custom_type_script = "uid://b8tfulyqbft8p"

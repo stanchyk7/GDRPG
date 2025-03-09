@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="Wander" load_steps=2 format=3 uid="uid://4hor8dpod1y3"]
+
+[ext_resource type="Script" uid="uid://dq8wl0yfd7l3d" path="res://Movements/Variants/wander.gd" id="1_yu7eg"]
+
+[resource]
+script = ExtResource("1_yu7eg")
