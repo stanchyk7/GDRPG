@@ -9,8 +9,8 @@ A framework for Godot made to streamline making RPGs.
 - grid-based movement
 - game state saving
 - main menu and pause menu
-- camera
-- movement routes
+- camera which follows a target and can lerp to its position
+- character movement routes, consisting of custom extendable Movement resources, which can be modified on the fly
 - infinite tilemap layers
 - everything else Godot offers on top of that
 
