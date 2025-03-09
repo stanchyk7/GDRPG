@@ -21,5 +21,5 @@ A framework for Godot made to streamline making RPGs.
 ## Special thanks
 
 - Oplexitie for making ![GBM2K](https://github.com/Oplexitie/GBM2K-Framework), which GDRPG is inspired by
-- Nathan Hoad for making ![Dialogue Manager](https://dialogue.nathanhoad.net/)
+- Nathan Hoad for making ![Dialogue Manager](https://github.com/nathanhoad/godot_dialogue_manager)
 - Jason Lothamer for making ![Game State Saver](https://github.com/jhlothamer/godot_game_state_saver_plugin)
