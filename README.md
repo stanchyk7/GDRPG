@@ -2,7 +2,7 @@
 
 A framework for Godot made to streamline making RPGs.
 
-## Be advised: GDRPG is still in beta! You can support its development by committing to it, whether by adding features or extending/polishing existing ones.
+## Be advised: GDRPG is still in beta! You can support its development by committing to it, whether by adding new features or extending/polishing existing ones.
 
 ## Features
 
