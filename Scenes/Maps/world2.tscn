@@ -1,118 +1,67 @@
-[gd_scene load_steps=16 format=4 uid="uid://desp8rgxud3dy"]
+[gd_scene load_steps=9 format=4 uid="uid://65jrwx7rq4n5"]
 
-[ext_resource type="Script" uid="uid://dmmfss7d1va3v" path="res://Scenes/Pawns/pawn_manager.gd" id="1_1b3yd"]
-[ext_resource type="PackedScene" uid="uid://cglhr5rplmgyg" path="res://Scenes/Pawns/Variants/PawnAnim/player.tscn" id="1_ep713"]
-[ext_resource type="TileSet" uid="uid://otamr5lhwu4o" path="res://Graphics/tileset.tres" id="1_us7go"]
-[ext_resource type="PackedScene" uid="uid://ckjb27vmdsyhq" path="res://Scenes/Pawns/Variants/Event/Walker/walker.tscn" id="3_qt5fr"]
-[ext_resource type="Resource" uid="uid://isriq6vhhdur" path="res://Movements/Variants/MoveBy/move_right.tres" id="4_qe4dn"]
-[ext_resource type="Script" uid="uid://ddex1fsjyv264" path="res://addons/game_state_saver/game_state_helper.gd" id="5_jjle6"]
-[ext_resource type="Resource" uid="uid://cg8u1x0w28hcu" path="res://Movements/Variants/MoveBy/move_down.tres" id="5_ngc2t"]
-[ext_resource type="PackedScene" uid="uid://d3xeykecmo176" path="res://Scenes/Pawns/Variants/PawnAnim/actor.tscn" id="5_py2g1"]
-[ext_resource type="Texture2D" uid="uid://cudey8us64ugm" path="res://Graphics/Pawns/actor_monkey.png" id="6_r0r7l"]
-[ext_resource type="Resource" uid="uid://bwjprly6ugq0y" path="res://Movements/Variants/MoveBy/move_left.tres" id="6_vi3vx"]
-[ext_resource type="Resource" uid="uid://cbsq58thth6ut" path="res://Dialogue/test.dialogue" id="7_153uk"]
-[ext_resource type="Resource" uid="uid://bg0wu0yec4qiu" path="res://Movements/Variants/MoveBy/move_up.tres" id="7_utdyw"]
-[ext_resource type="Texture2D" uid="uid://bnm10fyadt0qc" path="res://Graphics/icon2.svg" id="8_r0r7l"]
-[ext_resource type="TileSet" uid="uid://c5yrnubk0j57d" path="res://Graphics/Internal/internal.tres" id="10_jb4cg"]
-[ext_resource type="Script" uid="uid://b0ax07e0hopvk" path="res://Scenes/Maps/camera_2d.gd" id="11_6hr6o"]
+[ext_resource type="Script" uid="uid://dmmfss7d1va3v" path="res://Scenes/Pawns/pawn_manager.gd" id="1_pjpgy"]
+[ext_resource type="PackedScene" uid="uid://cglhr5rplmgyg" path="res://Scenes/Pawns/Variants/PawnAnim/player.tscn" id="2_wg5py"]
+[ext_resource type="PackedScene" uid="uid://ckjb27vmdsyhq" path="res://Scenes/Pawns/Variants/Event/Walker/walker.tscn" id="3_qml8k"]
+[ext_resource type="Script" uid="uid://ddex1fsjyv264" path="res://addons/game_state_saver/game_state_helper.gd" id="9_f3kiy"]
+[ext_resource type="PackedScene" uid="uid://d3xeykecmo176" path="res://Scenes/Pawns/Variants/PawnAnim/actor.tscn" id="10_tcoqr"]
+[ext_resource type="TileSet" uid="uid://otamr5lhwu4o" path="res://Graphics/tileset.tres" id="13_7jqei"]
+[ext_resource type="TileSet" uid="uid://c5yrnubk0j57d" path="res://Graphics/Internal/internal.tres" id="14_dg4dn"]
+[ext_resource type="Script" uid="uid://b0ax07e0hopvk" path="res://Scenes/Maps/camera_2d.gd" id="15_aqfcc"]
 
 [node name="World" type="Node2D"]
 
 [node name="PawnManager" type="Node2D" parent="." node_paths=PackedStringArray("coll_manager", "pawn_coll_manager")]
 z_index = 1
 y_sort_enabled = true
-script = ExtResource("1_1b3yd")
+script = ExtResource("1_pjpgy")
 coll_manager = NodePath("../CollisionManager")
 pawn_coll_manager = NodePath("../PawnCollisionManager")
 
-[node name="Player" parent="PawnManager" instance=ExtResource("1_ep713")]
+[node name="Player" parent="PawnManager" instance=ExtResource("2_wg5py")]
 position = Vector2(136, 120)
 
-[node name="Event" parent="PawnManager" instance=ExtResource("3_qt5fr")]
-position = Vector2(89, 104)
-default_move_route = Array[Object]([ExtResource("4_qe4dn"), ExtResource("5_ngc2t"), ExtResource("6_vi3vx"), ExtResource("7_utdyw")])
-collidable = true
-speed = 2.5
-
-[node name="Sprite2D" type="Sprite2D" parent="PawnManager/Event"]
-texture = ExtResource("8_r0r7l")
-
-[node name="GameStateHelper" type="Node" parent="PawnManager/Event"]
-script = ExtResource("5_jjle6")
-save_properties = Array[String](["position", "coll_pos", "cur_direction", "current_move", "default_move_route", "move_route"])
-
-[node name="Event2" parent="PawnManager" instance=ExtResource("3_qt5fr")]
-position = Vector2(152, 136)
-collidable = true
-speed = 2.0
-
-[node name="GameStateHelper" type="Node" parent="PawnManager/Event2"]
-script = ExtResource("5_jjle6")
-save_properties = Array[String](["position", "coll_pos", "cur_direction", "current_move"])
-
-[node name="Actor" parent="PawnManager/Event2" node_paths=PackedStringArray("parent") instance=ExtResource("5_py2g1")]
-parent = NodePath("..")
-
-[node name="Sprite2D" parent="PawnManager/Event2/Actor" index="0"]
-texture = ExtResource("6_r0r7l")
-
-[node name="Event3" parent="PawnManager" instance=ExtResource("3_qt5fr")]
-position = Vector2(168, 136)
-collidable = true
-speed = 2.0
-
-[node name="GameStateHelper" type="Node" parent="PawnManager/Event3"]
-script = ExtResource("5_jjle6")
-save_properties = Array[String](["position", "coll_pos", "cur_direction", "current_move"])
-
-[node name="Actor" parent="PawnManager/Event3" node_paths=PackedStringArray("parent") instance=ExtResource("5_py2g1")]
-parent = NodePath("..")
-
-[node name="Sprite2D" parent="PawnManager/Event3/Actor" index="0"]
-texture = ExtResource("6_r0r7l")
-
-[node name="Event4" parent="PawnManager" instance=ExtResource("3_qt5fr")]
+[node name="Event4" parent="PawnManager" instance=ExtResource("3_qml8k")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(232, 136)
-dialogue = ExtResource("7_153uk")
 collidable = true
 
 [node name="GameStateHelper" type="Node" parent="PawnManager/Event4"]
-script = ExtResource("5_jjle6")
+script = ExtResource("9_f3kiy")
 save_properties = Array[String](["position", "coll_pos", "cur_direction", "current_move"])
 
-[node name="Actor" parent="PawnManager/Event4" node_paths=PackedStringArray("parent") instance=ExtResource("5_py2g1")]
+[node name="Actor" parent="PawnManager/Event4" node_paths=PackedStringArray("parent") instance=ExtResource("10_tcoqr")]
 parent = NodePath("..")
 
 [node name="Tilemaps" type="Node2D" parent="."]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Tilemaps"]
 tile_map_data = PackedByteArray("AAAAAAAAAQAGAAQAAAAAAAEAAQAGAAQAAAAAAAIAAQAGAAQAAAABAAAAAQAGAAQAAAABAAEAAQAGAAQAAAABAAIAAQAGAAQAAAACAAAAAQAGAAQAAAACAAEAAQAGAAQAAAACAAIAAQAGAAQAAAAAAAMAAQAGAAQAAAAAAAQAAQAGAAQAAAAAAAUAAQAGAAQAAAABAAMAAQAGAAQAAAABAAQAAQAGAAQAAAABAAUAAQAGAAQAAAACAAMAAQAGAAQAAAACAAQAAQAGAAQAAAACAAUAAQAGAAQAAAAAAAYAAQAGAAQAAAAAAAcAAQAGAAQAAAAAAAgAAQAGAAQAAAABAAYAAQAGAAQAAAABAAcAAQAGAAQAAAABAAgAAQAGAAQAAAACAAYAAQAGAAQAAAACAAcAAQAGAAQAAAACAAgAAQAGAAQAAAAAAAkAAQAGAAQAAAAAAAoAAQAGAAQAAAAAAAsAAQAGAAQAAAABAAkAAQAGAAQAAAABAAoAAQAGAAQAAAABAAsAAQAGAAQAAAACAAkAAQAGAAQAAAACAAoAAQAGAAQAAAACAAsAAQAGAAQAAAAAAAwAAQAGAAQAAAAAAA0AAQAGAAQAAAAAAA4AAQAGAAQAAAABAAwAAQAGAAQAAAABAA0AAQAGAAQAAAABAA4AAQAGAAQAAAACAAwAAQAGAAQAAAACAA0AAQAGAAQAAAACAA4AAQAGAAQAAAADAAAAAQAGAAQAAAADAAEAAQAGAAQAAAADAAIAAQAGAAQAAAAEAAAAAQAGAAQAAAAEAAEAAQAGAAQAAAAEAAIAAQAGAAQAAAAFAAAAAQAGAAQAAAAFAAEAAQAGAAQAAAAFAAIAAQAGAAQAAAADAAMAAQAGAAQAAAADAAQAAQAGAAQAAAADAAUAAQAGAAQAAAAEAAMAAQAGAAQAAAAEAAQAAQAGAAQAAAAEAAUAAQAGAAQAAAAFAAMAAQAGAAQAAAAFAAQAAQAGAAQAAAAFAAUAAQAGAAQAAAADAAYAAQAGAAQAAAADAAcAAQAGAAQAAAAEAAYAAQAGAAQAAAAFAAYAAQAGAAQAAAAFAAcAAQAGAAQAAAAFAAgAAQAGAAQAAAADAAoAAQAGAAQAAAAEAAkAAQAGAAQAAAAEAAoAAQAGAAQAAAAEAAsAAQAGAAQAAAAFAAkAAQAGAAQAAAAFAAoAAQAGAAQAAAAFAAsAAQAGAAQAAAADAAwAAQAGAAQAAAADAA0AAQAGAAQAAAADAA4AAQAGAAQAAAAEAAwAAQAGAAQAAAAEAA0AAQAGAAQAAAAEAA4AAQAGAAQAAAAFAAwAAQAGAAQAAAAFAA0AAQAGAAQAAAAFAA4AAQAGAAQAAAAGAAAAAQAGAAQAAAAGAAEAAQAGAAQAAAAGAAIAAQAGAAQAAAAHAAAAAQAGAAQAAAAHAAEAAQAGAAQAAAAHAAIAAQAGAAQAAAAIAAAAAQAGAAQAAAAIAAEAAQAGAAQAAAAIAAIAAQAGAAQAAAAGAAMAAQAGAAQAAAAGAAQAAQAGAAQAAAAGAAUAAQAGAAQAAAAHAAMAAQAGAAQAAAAHAAQAAQAGAAQAAAAHAAUAAQAGAAQAAAAIAAMAAQAGAAQAAAAIAAQAAQAGAAQAAAAIAAUAAQAGAAQAAAAGAAYAAQAGAAQAAAAGAAcAAQAGAAQAAAAGAAgAAQAGAAQAAAAHAAYAAQAGAAQAAAAHAAcAAQAGAAQAAAAHAAgAAQAGAAQAAAAIAAYAAQAGAAQAAAAIAAcAAQAGAAQAAAAIAAgAAQAGAAQAAAAGAAkAAQAGAAQAAAAGAAoAAQAGAAQAAAAGAAsAAQAGAAQAAAAHAAkAAQAGAAQAAAAHAAoAAQAGAAQAAAAHAAsAAQAGAAQAAAAIAAkAAQAGAAQAAAAIAAoAAQAGAAQAAAAIAAsAAQAGAAQAAAAGAAwAAQAGAAQAAAAGAA0AAQAGAAQAAAAGAA4AAQAGAAQAAAAHAAwAAQAGAAQAAAAHAA0AAQAGAAQAAAAHAA4AAQAGAAQAAAAIAAwAAQAGAAQAAAAIAA0AAQAGAAQAAAAIAA4AAQAGAAQAAAAJAAAAAQAGAAQAAAAJAAEAAQAGAAQAAAAJAAIAAQAGAAQAAAAKAAAAAQAGAAQAAAAKAAEAAQAGAAQAAAAKAAIAAQAGAAQAAAALAAAAAQAGAAQAAAALAAEAAQAGAAQAAAALAAIAAQAGAAQAAAAJAAMAAQAGAAQAAAAJAAQAAQAGAAQAAAAJAAUAAQAGAAQAAAAKAAMAAQAGAAQAAAAKAAQAAQAGAAQAAAAKAAUAAQAGAAQAAAALAAMAAQAGAAQAAAALAAQAAQAGAAQAAAALAAUAAQAGAAQAAAAJAAYAAQAGAAQAAAAJAAcAAQAGAAQAAAAJAAgAAQAGAAQAAAAKAAYAAQAGAAQAAAAKAAcAAQAGAAQAAAAKAAgAAQAGAAQAAAALAAYAAQAGAAQAAAALAAcAAQAGAAQAAAALAAgAAQAGAAQAAAAJAAkAAQAGAAQAAAAJAAoAAQAGAAQAAAAJAAsAAQAGAAQAAAAKAAkAAQAGAAQAAAAKAAoAAQAGAAQAAAAKAAsAAQAGAAQAAAALAAkAAQAGAAQAAAALAAoAAQAGAAQAAAALAAsAAQAGAAQAAAAJAAwAAQAGAAQAAAAJAA0AAQAGAAQAAAAJAA4AAQAGAAQAAAAKAAwAAQAGAAQAAAAKAA0AAQAGAAQAAAAKAA4AAQAGAAQAAAALAAwAAQAGAAQAAAALAA0AAQAGAAQAAAALAA4AAQAGAAQAAAAMAAAAAQAGAAQAAAAMAAEAAQAGAAQAAAAMAAIAAQAGAAQAAAANAAAAAQAGAAQAAAANAAEAAQAGAAQAAAANAAIAAQAGAAQAAAAOAAAAAQAGAAQAAAAOAAEAAQAGAAQAAAAOAAIAAQAGAAQAAAAMAAMAAQAGAAQAAAAMAAQAAQAGAAQAAAAMAAUAAQAGAAQAAAANAAMAAQAGAAQAAAANAAQAAQAGAAQAAAANAAUAAQAGAAQAAAAOAAMAAQAGAAQAAAAOAAQAAQAGAAQAAAAOAAUAAQAGAAQAAAAMAAYAAQAGAAQAAAAMAAcAAQAGAAQAAAAMAAgAAQAGAAQAAAANAAYAAQAGAAQAAAANAAcAAQAGAAQAAAANAAgAAQAGAAQAAAAOAAYAAQAGAAQAAAAOAAcAAQAGAAQAAAAOAAgAAQAGAAQAAAAMAAkAAQAGAAQAAAAMAAoAAQAGAAQAAAAMAAsAAQAGAAQAAAANAAkAAQAGAAQAAAANAAoAAQAGAAQAAAANAAsAAQAGAAQAAAAOAAkAAQAGAAQAAAAOAAoAAQAGAAQAAAAOAAsAAQAGAAQAAAAMAAwAAQAGAAQAAAAMAA0AAQAGAAQAAAAMAA4AAQAGAAQAAAANAAwAAQAGAAQAAAANAA0AAQAGAAQAAAANAA4AAQAGAAQAAAAOAAwAAQAGAAQAAAAOAA0AAQAGAAQAAAAOAA4AAQAGAAQAAAAPAAAAAQAGAAQAAAAPAAEAAQAGAAQAAAAPAAIAAQAGAAQAAAAQAAAAAQAGAAQAAAAQAAEAAQAGAAQAAAAQAAIAAQAGAAQAAAARAAAAAQAGAAQAAAARAAEAAQAGAAQAAAARAAIAAQAGAAQAAAAPAAMAAQAGAAQAAAAPAAQAAQAGAAQAAAAPAAUAAQAGAAQAAAAQAAMAAQAGAAQAAAAQAAQAAQAGAAQAAAAQAAUAAQAGAAQAAAARAAMAAQAGAAQAAAARAAQAAQAGAAQAAAARAAUAAQAGAAQAAAAPAAYAAQAGAAQAAAAPAAcAAQAGAAQAAAAPAAgAAQAGAAQAAAAQAAYAAQAGAAQAAAAQAAcAAQAGAAQAAAAQAAgAAQAGAAQAAAARAAYAAQAGAAQAAAARAAcAAQAGAAQAAAARAAgAAQAGAAQAAAAPAAkAAQAGAAQAAAAPAAoAAQAGAAQAAAAPAAsAAQAGAAQAAAAQAAkAAQAGAAQAAAAQAAoAAQAGAAQAAAAQAAsAAQAGAAQAAAARAAkAAQAGAAQAAAARAAoAAQAGAAQAAAARAAsAAQAGAAQAAAAPAAwAAQAGAAQAAAAPAA0AAQAGAAQAAAAPAA4AAQAGAAQAAAAQAAwAAQAGAAQAAAAQAA0AAQAGAAQAAAAQAA4AAQAGAAQAAAARAAwAAQAGAAQAAAARAA0AAQAGAAQAAAARAA4AAQAGAAQAAAASAAAAAQAGAAQAAAASAAEAAQAGAAQAAAASAAIAAQAGAAQAAAATAAAAAQAGAAQAAAATAAEAAQAGAAQAAAATAAIAAQAGAAQAAAASAAMAAQAGAAQAAAASAAQAAQAGAAQAAAASAAUAAQAGAAQAAAATAAMAAQAGAAQAAAATAAQAAQAGAAQAAAATAAUAAQAGAAQAAAASAAYAAQAGAAQAAAASAAcAAQAGAAQAAAASAAgAAQAGAAQAAAATAAYAAQAGAAQAAAATAAcAAQAGAAQAAAATAAgAAQAGAAQAAAASAAkAAQAGAAQAAAASAAoAAQAGAAQAAAASAAsAAQAGAAQAAAATAAkAAQAGAAQAAAATAAoAAQAGAAQAAAATAAsAAQAGAAQAAAASAAwAAQAGAAQAAAASAA0AAQAGAAQAAAASAA4AAQAGAAQAAAATAAwAAQAGAAQAAAATAA0AAQAGAAQAAAATAA4AAQAGAAQAAAADAAsAAQAGAAQAAAADAAkAAQAGAAQAAAADAAgAAQAGAAQAAAAEAAgAAQAGAAQAAAAEAAcAAQAGAAQAAAA=")
-tile_set = ExtResource("1_us7go")
+tile_set = ExtResource("13_7jqei")
 collision_enabled = false
 navigation_enabled = false
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="Tilemaps"]
 tile_map_data = PackedByteArray("AAAGAAQAAQAVAAkAAAAFAAQAAQAVAAkAAAAEAAQAAQAVAAkAAAADAAQAAQAVAAkAAAADAAUAAQAVAAkAAAADAAYAAQAVAAkAAAADAAcAAQAVAAkAAAALAAUAAQAVAAkAAAALAAYAAQAVAAkAAAALAAcAAQAVAAkAAAALAAgAAQAVAAkAAAALAAkAAQAVAAkAAAAKAAkAAQAVAAkAAAAJAAkAAQAVAAkAAAAIAAkAAQAVAAkAAAAHAAkAAQAVAAkAAAA=")
-tile_set = ExtResource("1_us7go")
+tile_set = ExtResource("13_7jqei")
 collision_enabled = false
 navigation_enabled = false
 
 [node name="TileMapLayer3" type="TileMapLayer" parent="Tilemaps"]
 z_index = 1
 tile_map_data = PackedByteArray("AAADAAQAAQAVAAgAAAADAAUAAQAVAAgAAAADAAYAAQAVAAgAAAALAAUAAQAVAAgAAAALAAYAAQAVAAgAAAALAAcAAQAVAAgAAAALAAgAAQAVAAgAAAADAAMAAQAVAAgAAAAEAAMAAQAVAAgAAAAFAAMAAQAVAAgAAAAGAAMAAQAVAAgAAAAHAAgAAQAVAAgAAAAIAAgAAQAVAAgAAAAJAAgAAQAVAAgAAAAKAAgAAQAVAAgAAAALAAQAAQAVAAgAAAA=")
-tile_set = ExtResource("1_us7go")
+tile_set = ExtResource("13_7jqei")
 collision_enabled = false
 navigation_enabled = false
 
 [node name="CollisionManager" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD/////AAAAAAAAAAAAAP//AAAAAAAAAAABAP//AAAAAAAAAAACAP//AAAAAAAAAAADAP//AAAAAAAAAAAEAP//AAAAAAAAAAAFAP//AAAAAAAAAAAGAP//AAAAAAAAAAAHAP//AAAAAAAAAAAIAP//AAAAAAAAAAAJAP//AAAAAAAAAAAKAP//AAAAAAAAAAALAP//AAAAAAAAAAAMAP//AAAAAAAAAAANAP//AAAAAAAAAAAOAP//AAAAAAAAAAAPAP//AAAAAAAAAAAQAP//AAAAAAAAAAARAP//AAAAAAAAAAASAP//AAAAAAAAAAATAP//AAAAAAAAAAAUAP//AAAAAAAAAAAUAA8AAAAAAAAAAAATAA8AAAAAAAAAAAASAA8AAAAAAAAAAAARAA8AAAAAAAAAAAAQAA8AAAAAAAAAAAAPAA8AAAAAAAAAAAAOAA8AAAAAAAAAAAANAA8AAAAAAAAAAAAMAA8AAAAAAAAAAAALAA8AAAAAAAAAAAAKAA8AAAAAAAAAAAAJAA8AAAAAAAAAAAAIAA8AAAAAAAAAAAAHAA8AAAAAAAAAAAAGAA8AAAAAAAAAAAAFAA8AAAAAAAAAAAAEAA8AAAAAAAAAAAADAA8AAAAAAAAAAAACAA8AAAAAAAAAAAABAA8AAAAAAAAAAAAAAA8AAAAAAAAAAAD//w4AAAAAAAAAAAD//w0AAAAAAAAAAAD//wwAAAAAAAAAAAD//wsAAAAAAAAAAAD//woAAAAAAAAAAAD//wkAAAAAAAAAAAD//wgAAAAAAAAAAAD//wcAAAAAAAAAAAD//wYAAAAAAAAAAAD//wUAAAAAAAAAAAD//wQAAAAAAAAAAAD//wMAAAAAAAAAAAD//wIAAAAAAAAAAAD//wEAAAAAAAAAAAD//wAAAAAAAAAAAAD//w8AAAAAAAAAAAAUAAAAAAAAAAAAAAAUAAEAAAAAAAAAAAAUAAIAAAAAAAAAAAAUAAMAAAAAAAAAAAAUAAQAAAAAAAAAAAAUAAUAAAAAAAAAAAAUAAYAAAAAAAAAAAAUAAcAAAAAAAAAAAAUAAgAAAAAAAAAAAAUAAkAAAAAAAAAAAAUAAoAAAAAAAAAAAAUAAsAAAAAAAAAAAAUAAwAAAAAAAAAAAAUAA0AAAAAAAAAAAAUAA4AAAAAAAAAAAA=")
-tile_set = ExtResource("10_jb4cg")
+tile_set = ExtResource("14_dg4dn")
 collision_enabled = false
 navigation_enabled = false
 
 [node name="PawnCollisionManager" type="TileMapLayer" parent="."]
-tile_set = ExtResource("10_jb4cg")
+tile_set = ExtResource("14_dg4dn")
 collision_enabled = false
 navigation_enabled = false
 
@@ -121,19 +70,16 @@ limit_left = 0
 limit_top = 0
 limit_right = 2452
 limit_bottom = 2435
-script = ExtResource("11_6hr6o")
+script = ExtResource("15_aqfcc")
 target = NodePath("../PawnManager/Player")
 lerp_self = true
 lerp_weight = 0.02
 
 [node name="GameStateHelper" type="Node" parent="Camera2D"]
-script = ExtResource("5_jjle6")
+script = ExtResource("9_f3kiy")
 save_properties = Array[String](["target_path", "position"])
 global = true
 metadata/_custom_type_script = "uid://ddex1fsjyv264"
 
 [node name="CameraTarget" type="Node2D" parent="."]
 unique_name_in_owner = true
-
-[editable path="PawnManager/Event2/Actor"]
-[editable path="PawnManager/Event3/Actor"]

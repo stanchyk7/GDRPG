@@ -14,5 +14,6 @@ parent = NodePath("..")
 
 [node name="GameStateHelper" type="Node" parent="."]
 script = ExtResource("3_6tjj2")
-save_properties = Array[String](["coll_pos", "position", "cur_direction"])
+save_properties = Array[String](["coll_pos", "position", "cur_direction", "is_moving", "is_talking", "is_stopped"])
+global = true
 metadata/_custom_type_script = "uid://ddex1fsjyv264"

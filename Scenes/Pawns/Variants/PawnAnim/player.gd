@@ -1,4 +1,4 @@
-extends Pawn
+extends Walker
 class_name Player
 
 const MOVEMENTS: Dictionary = {
@@ -12,7 +12,8 @@ const MOVEMENTS: Dictionary = {
 var input_history: Array[String] = []
 
 func _ready() -> void:
-	$GameStateHelper.loading_data.connect(_on_data_loaded)
+	super()
+	default_move_route = []
 	print(manager.get_pawns_at(Utils.snapped_pos(position))[0].name)
 	
 func _on_data_loaded(data: Dictionary):
@@ -20,6 +21,7 @@ func _on_data_loaded(data: Dictionary):
 	
 func get_ev_dialogue(ev: Array):
 	if ev: 
+		move_route = []
 		is_talking = true
 		if ev[0].actor: ev[0].actor.set_anim_direction(-cur_direction)
 		ev[0].trigger_dialogue()
@@ -34,6 +36,7 @@ func _tween_pos_done():
 
 func _process(_delta):
 	input_priority()
+	default_move_route = []
 	
 	if can_move():
 		
@@ -44,12 +47,18 @@ func _process(_delta):
 		elif Input.is_action_just_pressed("ui_accept"):
 			var ev = manager.get_talkable_pawns_at(Utils.snapped_pos(position)+cur_direction, 0)
 			get_ev_dialogue(ev)
-		
-		var input_direction: Vector2i = set_direction()
-		if input_direction:
-			cur_direction = input_direction
-			if actor: actor.set_anim_direction(cur_direction)
-			move_by(cur_direction)
+		elif Input.is_key_pressed(KEY_1):
+			Utils.transfer("world")
+		elif Input.is_key_pressed(KEY_2):
+			Utils.transfer("world2")
+		else:
+			var input_direction: Vector2i = set_direction()
+			if input_direction:
+				cur_direction = input_direction
+				actor.set_anim_direction(input_direction)
+				if space_free(input_direction):
+					default_move_route = [MoveBy.new(input_direction)]
+			
 
 func input_priority():
 	# Input prioritie system, prioritize the latest inputs

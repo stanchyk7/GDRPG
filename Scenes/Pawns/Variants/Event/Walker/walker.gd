@@ -1,4 +1,4 @@
-extends Event
+extends Pawn
 class_name Walker
 
 @export var default_move_route: Array[Movement] = [Wander.new()]
@@ -7,7 +7,6 @@ var move_route: Array[Movement] = []
 var current_move = 0
 
 func _ready() -> void:
-	super()
 	if $GameStateHelper: $GameStateHelper.loading_data.connect(_on_loading_data)
 	
 func _on_loading_data(data: Dictionary):
@@ -44,8 +43,10 @@ func _physics_process(delta: float) -> void:
 				"Wander":
 					var dir_h: int = randi_range(-1,1)
 					var dir_v: int = randi_range(-1,1) if not dir_h else 0
-					if not dir_h and not dir_v: wait()
+					if not dir_h and not dir_v: wait(1.0)
 					else: move_by(Vector2i(dir_h,dir_v))
+				"Wait":
+					wait(move_route[0].duration)
 			move_route.pop_front()
 		else:
 			move_route = default_move_route.duplicate(true)

@@ -20,5 +20,5 @@ func _physics_process(delta: float) -> void:
 	if can_move():
 		var dir_h: int = randi_range(-1,1)
 		var dir_v: int = randi_range(-1,1) if not dir_h else 0
-		if not dir_h and not dir_v: wait()
+		if not dir_h and not dir_v: wait(1.0)
 		else: move_by(Vector2i(dir_h,dir_v))

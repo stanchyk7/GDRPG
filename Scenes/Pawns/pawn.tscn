@@ -4,7 +4,5 @@
 
 [node name="Pawn" type="Node2D"]
 script = ExtResource("1_m6lx4")
-collidable = null
-speed = null
 
 [node name="Marker2D" type="Marker2D" parent="."]

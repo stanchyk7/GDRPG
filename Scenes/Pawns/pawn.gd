@@ -60,9 +60,9 @@ func move_to(where: Vector2i):
 	if actor: actor.tween_pos(Utils.unsnapped_pos(where))
 	else: tween_pos(Utils.unsnapped_pos(where))
 	
-func wait():
+func wait(duration: float):
 	is_stopped = true
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(duration).timeout
 	is_stopped = false
 
 func change_sprite(new_texture: String):
