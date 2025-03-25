@@ -1,22 +1,25 @@
 # GDRPG
 
-A framework for Godot made to streamline making RPGs.
+A framework for Godot based on RPG Maker made to streamline making grid-based games, such as top-down RPGs.
 
 ## Be advised: GDRPG is still in beta! You can support its development by committing to it, whether by adding new features or extending/polishing existing ones.
 
 ## Features
 
 - grid-based movement
-- game state saving
-- main menu and pause menu
-- camera which follows a target and can lerp to its position
+- selective game and entity state saving
+- main menu and pause menu, you can also add  extra menus if you'd like (one at a time)
+- scene switcher with transitions (fade in/out, dissolve in/out based on heightmap - the kind you see in RPG Maker)
 - character movement routes, consisting of custom extendable Movement resources, which can be modified on the fly
+- interface for displaying additional pictures during dialogue (and moving them, rotating them, resizing them etc.)
+- camera which follows a target and can lerp to its position
 - infinite tilemap layers
 - everything else Godot offers on top of that
 
 ## TODO
 
-- scene transitions
+- polish, polish, polish
+- make an actual game with it!
 
 ## Special thanks
 
