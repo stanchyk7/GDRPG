@@ -38,7 +38,7 @@ var _freed_instanced_scene_save_and_loads:Array[GameStateHelper.SaveFreedInstanc
 # used when saved game is loaded - prevents current scene game state from being saved before changing scene
 var _skip_next_scene_transition_save := false
 
-@onready var base = $/root/Game/SubViewportContainer/SubViewport
+@onready var base = get_node(Constants.base_path)
 
 func _ready() -> void:
 	# monitor whenever a node is added in the tree - we can tell when a new scene is loaded this way

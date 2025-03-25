@@ -4,20 +4,21 @@ class_name Walker
 @export var default_move_route: Array[Movement] = [Wander.new()]
 var move_route: Array[Movement] = []
 @onready var max_moves = move_route.size()
-var current_move = 0
 
 func _ready() -> void:
-	if $GameStateHelper: $GameStateHelper.loading_data.connect(_on_loading_data)
+	if $EventStateHelper: $EventStateHelper.loading_data.connect(_on_loading_data)
 	
 func _on_loading_data(data: Dictionary):
+	if is_talking:
+		await DialogueManager.dialogue_ended
+		wait(0.1)
+		is_talking = false
 	if actor:
 		actor.set_anim_direction(cur_direction)
 		actor.animtree.set("parameters/TimeScale/scale", speed)
 		actor.animtree["parameters/StateMachine/playback"].start("Walk1" if actor.switch_walk else "Walk0")
 		actor.animtree.advance(0)
-	if collidable:
-		manager.pawn_coll_manager.set_cell(Utils.snapped_pos(position),-1,Vector2i.ZERO)
-		manager.pawn_coll_manager.set_cell(coll_pos,1,Vector2i.ZERO)
+	change_coll_pos(coll_pos)
 	is_moving = true
 	move_tween = create_tween()
 	move_tween.tween_property(self,"position",Utils.unsnapped_pos(coll_pos),((actor.walk_anim_length/speed) if actor else (1.0/speed))*(position.distance_to(Utils.unsnapped_pos(coll_pos))/Constants.tile_size))

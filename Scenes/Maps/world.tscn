@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://desp8rgxud3dy"]
+[gd_scene load_steps=17 format=4 uid="uid://desp8rgxud3dy"]
 
 [ext_resource type="Script" uid="uid://dmmfss7d1va3v" path="res://Scenes/Pawns/pawn_manager.gd" id="1_1b3yd"]
 [ext_resource type="PackedScene" uid="uid://cglhr5rplmgyg" path="res://Scenes/Pawns/Variants/PawnAnim/player.tscn" id="1_ep713"]
@@ -14,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://bg0wu0yec4qiu" path="res://Movements/Variants/MoveBy/move_up.tres" id="7_utdyw"]
 [ext_resource type="Texture2D" uid="uid://bnm10fyadt0qc" path="res://Graphics/icon2.svg" id="8_r0r7l"]
 [ext_resource type="TileSet" uid="uid://c5yrnubk0j57d" path="res://Graphics/Internal/internal.tres" id="10_jb4cg"]
+[ext_resource type="PackedScene" uid="uid://dbbki4j1pkc63" path="res://event_state_helper.tscn" id="10_ngc2t"]
 [ext_resource type="Script" uid="uid://b0ax07e0hopvk" path="res://Scenes/Maps/camera_2d.gd" id="11_6hr6o"]
 
 [node name="World" type="Node2D"]
@@ -37,18 +38,12 @@ speed = 2.5
 [node name="Sprite2D" type="Sprite2D" parent="PawnManager/Event"]
 texture = ExtResource("8_r0r7l")
 
-[node name="GameStateHelper" type="Node" parent="PawnManager/Event"]
-script = ExtResource("5_jjle6")
-save_properties = Array[String](["position", "coll_pos", "cur_direction", "current_move", "default_move_route", "move_route"])
+[node name="EventStateHelper" parent="PawnManager/Event" instance=ExtResource("10_ngc2t")]
 
 [node name="Event2" parent="PawnManager" instance=ExtResource("3_qt5fr")]
 position = Vector2(152, 136)
 collidable = true
 speed = 2.0
-
-[node name="GameStateHelper" type="Node" parent="PawnManager/Event2"]
-script = ExtResource("5_jjle6")
-save_properties = Array[String](["position", "coll_pos", "cur_direction", "current_move"])
 
 [node name="Actor" parent="PawnManager/Event2" node_paths=PackedStringArray("parent") instance=ExtResource("5_py2g1")]
 parent = NodePath("..")
@@ -56,14 +51,12 @@ parent = NodePath("..")
 [node name="Sprite2D" parent="PawnManager/Event2/Actor" index="0"]
 texture = ExtResource("6_r0r7l")
 
+[node name="EventStateHelper" parent="PawnManager/Event2" instance=ExtResource("10_ngc2t")]
+
 [node name="Event3" parent="PawnManager" instance=ExtResource("3_qt5fr")]
 position = Vector2(168, 136)
 collidable = true
 speed = 2.0
-
-[node name="GameStateHelper" type="Node" parent="PawnManager/Event3"]
-script = ExtResource("5_jjle6")
-save_properties = Array[String](["position", "coll_pos", "cur_direction", "current_move"])
 
 [node name="Actor" parent="PawnManager/Event3" node_paths=PackedStringArray("parent") instance=ExtResource("5_py2g1")]
 parent = NodePath("..")
@@ -71,18 +64,18 @@ parent = NodePath("..")
 [node name="Sprite2D" parent="PawnManager/Event3/Actor" index="0"]
 texture = ExtResource("6_r0r7l")
 
+[node name="EventStateHelper" parent="PawnManager/Event3" instance=ExtResource("10_ngc2t")]
+
 [node name="Event4" parent="PawnManager" instance=ExtResource("3_qt5fr")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(232, 136)
 dialogue = ExtResource("7_153uk")
 collidable = true
 
-[node name="GameStateHelper" type="Node" parent="PawnManager/Event4"]
-script = ExtResource("5_jjle6")
-save_properties = Array[String](["position", "coll_pos", "cur_direction", "current_move"])
-
 [node name="Actor" parent="PawnManager/Event4" node_paths=PackedStringArray("parent") instance=ExtResource("5_py2g1")]
 parent = NodePath("..")
+
+[node name="EventStateHelper" parent="PawnManager/Event4" instance=ExtResource("10_ngc2t")]
 
 [node name="Tilemaps" type="Node2D" parent="."]
 

@@ -31,6 +31,9 @@ signal dialogue_ended(resource: DialogueResource)
 ## Used internally.
 signal bridge_get_next_dialogue_line_completed(line: DialogueLine)
 
+## Used internally
+signal bridge_dialogue_started(resource: DialogueResource)
+
 ## Used inernally
 signal bridge_mutated()
 
@@ -451,6 +454,7 @@ func _start_balloon(balloon: Node, resource: DialogueResource, title: String, ex
 		assert(false, DMConstants.translate(&"runtime.dialogue_balloon_missing_start_method"))
 
 	dialogue_started.emit(resource)
+	bridge_dialogue_started.emit(resource)
 
 
 # Get the path to the example balloon
@@ -863,7 +867,18 @@ func _resolve(tokens: Array, extra_game_states: Array):
 		limit += 1
 		var token: Dictionary = tokens[i]
 
-		if token.type == DMConstants.TOKEN_FUNCTION:
+		if token.type == DMConstants.TOKEN_NULL_COALESCE:
+			var caller: Dictionary = tokens[i - 1]
+			if caller.value == null:
+				# If the caller is null then the method/property is also null
+				caller.type = DMConstants.TOKEN_VALUE
+				caller.value = null
+				tokens.remove_at(i + 1)
+				tokens.remove_at(i)
+			else:
+				token.type = DMConstants.TOKEN_DOT
+
+		elif token.type == DMConstants.TOKEN_FUNCTION:
 			var function_name: String = token.function
 			var args = await _resolve_each(token.value, extra_game_states)
 			if tokens[i - 1].type == DMConstants.TOKEN_DOT:
@@ -1326,6 +1341,9 @@ func _is_valid(line: DialogueLine) -> bool:
 
 # Check that a thing has a given method.
 func _thing_has_method(thing, method: String, args: Array) -> bool:
+	if not is_instance_valid(thing):
+		return false
+
 	if Builtins.is_supported(thing, method):
 		return thing != _autoloads
 	elif thing is Dictionary:
@@ -1342,7 +1360,7 @@ func _thing_has_method(thing, method: String, args: Array) -> bool:
 
 	if method.to_snake_case() != method and DMSettings.check_for_dotnet_solution():
 		# If we get this far then the method might be a C# method with a Task return type
-		return _get_dotnet_dialogue_manager().ThingHasMethod(thing, method)
+		return _get_dotnet_dialogue_manager().ThingHasMethod(thing, method, args)
 
 	return false
 

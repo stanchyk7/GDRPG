@@ -17,8 +17,8 @@ func _on_state_loaded() -> void:
 	for pawn in pawns:
 		pawn_coll_manager.set_cell(pawn.coll_pos, 1, Vector2i.ZERO) # Generate collision
 
-func get_pawn_by_name(name: String):
-	return get_children().filter(func(p): return p.name == name)[0]
+func get_pawn_by_name(name_in: String):
+	return get_children().filter(func(p): return p.name == name_in)[0]
 
 func get_pawns_at(position_in: Vector2i):
 	return get_children().filter(func(p): return Utils.snapped_pos(p.position) == position_in)

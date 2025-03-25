@@ -5,6 +5,9 @@ Nathan: Here are some choices.
 	Nathan: You picked the first one.
 - Second one
 	Nathan: You picked the second one.
+- See world map
+	do Utils.to_menu("other_menu")
+	=> END
 - Start again => start
 - End the conversation => END
 Nathan: For more information see the online documentation.

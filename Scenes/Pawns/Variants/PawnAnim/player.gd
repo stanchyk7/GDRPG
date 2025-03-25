@@ -12,12 +12,20 @@ const MOVEMENTS: Dictionary = {
 var input_history: Array[String] = []
 
 func _ready() -> void:
-	super()
+	if $PlayerStateHelper: $PlayerStateHelper.loading_data.connect(_on_loading_data)
 	default_move_route = []
+	
 	print(manager.get_pawns_at(Utils.snapped_pos(position))[0].name)
 	
-func _on_data_loaded(data: Dictionary):
+func _on_loading_data(data: Dictionary):
 	actor.set_anim_direction(cur_direction)
+	change_coll_pos(coll_pos)
+	move_to(coll_pos, false)
+	if is_talking:
+		await DialogueManager.dialogue_ended
+		wait(0.1)
+		is_talking = false
+	is_moving = false
 	
 func get_ev_dialogue(ev: Array):
 	if ev: 
@@ -34,31 +42,32 @@ func _tween_pos_done():
 	var ev = manager.get_talkable_pawns_at(Utils.snapped_pos(position), 1)
 	get_ev_dialogue(ev)
 
-func _process(_delta):
+func _physics_process(_delta):
 	input_priority()
-	default_move_route = []
+	
+	move_route = []
 	
 	if can_move():
 		
 		if Input.is_action_just_pressed("ui_cancel"):
-			$/root/Game/CanvasLayer/pause.visible = true
-			$/root/Game/CanvasLayer/pause/VBoxContainer/resume.grab_focus()
+			var pause = get_node(Constants.pause_path)
+			pause.visible = true
+			pause.get_node("VBoxContainer/resume").grab_focus()
 			get_tree().paused = true
 		elif Input.is_action_just_pressed("ui_accept"):
 			var ev = manager.get_talkable_pawns_at(Utils.snapped_pos(position)+cur_direction, 0)
 			get_ev_dialogue(ev)
-		elif Input.is_key_pressed(KEY_1):
-			Utils.transfer("world")
-		elif Input.is_key_pressed(KEY_2):
-			Utils.transfer("world2")
 		else:
 			var input_direction: Vector2i = set_direction()
 			if input_direction:
 				cur_direction = input_direction
 				actor.set_anim_direction(input_direction)
 				if space_free(input_direction):
-					default_move_route = [MoveBy.new(input_direction)]
-			
+					move_route = [MoveBy.new(input_direction)]
+	
+	super(_delta)
+	
+	
 
 func input_priority():
 	# Input prioritie system, prioritize the latest inputs

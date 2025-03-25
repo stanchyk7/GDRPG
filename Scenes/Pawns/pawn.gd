@@ -35,10 +35,7 @@ func space_free(dir: Vector2i):
 	
 func force_move_by(dir: Vector2i):
 	var snapped_pos = Utils.snapped_pos(position)
-	if collidable:
-		manager.pawn_coll_manager.set_cell(snapped_pos,-1,Vector2i.ZERO)
-		manager.pawn_coll_manager.set_cell(snapped_pos+dir,1,Vector2i.ZERO)
-	coll_pos = snapped_pos+dir
+	change_coll_pos(snapped_pos+dir)
 	if actor: actor.tween_pos(position+Vector2(dir*16))
 	else: 
 		tween_pos(position+Vector2(dir*16))
@@ -51,14 +48,22 @@ func move_by(dir: Vector2i):
 		else: 
 			force_move_by(dir)
 		await move_tween.finished
-
-func move_to(where: Vector2i):
+		
+func change_coll_pos(where: Vector2i):
 	if collidable:
 		manager.pawn_coll_manager.set_cell(Utils.snapped_pos(position),-1,Vector2i.ZERO)
 		manager.pawn_coll_manager.set_cell(where,1,Vector2i.ZERO)
 	coll_pos = where
-	if actor: actor.tween_pos(Utils.unsnapped_pos(where))
-	else: tween_pos(Utils.unsnapped_pos(where))
+
+func move_to(where: Vector2i, tween: bool):
+	change_coll_pos(where)
+	if tween:
+		if actor: 
+			actor.tween_pos(Utils.unsnapped_pos(where))
+		else: 
+			tween_pos(Utils.unsnapped_pos(where))
+	else:
+		position = Utils.unsnapped_pos(where)
 	
 func wait(duration: float):
 	is_stopped = true

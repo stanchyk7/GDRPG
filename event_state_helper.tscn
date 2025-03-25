@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbbki4j1pkc63"]
+
+[ext_resource type="Script" uid="uid://ddex1fsjyv264" path="res://addons/game_state_saver/game_state_helper.gd" id="1_oorbn"]
+
+[node name="EventStateHelper" type="Node"]
+script = ExtResource("1_oorbn")
+save_properties = Array[String](["position", "coll_pos", "cur_direction", "default_move_route", "move_route"])

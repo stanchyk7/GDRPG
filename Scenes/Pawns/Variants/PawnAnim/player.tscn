@@ -7,12 +7,12 @@
 [node name="Player" type="Node2D"]
 script = ExtResource("1_7unkt")
 collidable = true
-speed = 1.5
+speed = 2.0
 
 [node name="Actor" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_3llmq")]
 parent = NodePath("..")
 
-[node name="GameStateHelper" type="Node" parent="."]
+[node name="PlayerStateHelper" type="Node" parent="."]
 script = ExtResource("3_6tjj2")
 save_properties = Array[String](["coll_pos", "position", "cur_direction", "is_moving", "is_talking", "is_stopped"])
 global = true

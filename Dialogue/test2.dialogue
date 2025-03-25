@@ -1,0 +1,43 @@
+~ start
+Nathan: [[Hi|Hello|Howdy]] again, would you like to see the map again?
+- Yes
+	do Utils.to_menu("other_menu")
+- No => END
+- What's with all the holes?
+	Nathan: Yeah, I don't know where they're from.
+	Nathan: Word is, some big moles were here and dug them up.
+	Nathan: I wasn't there to see it, though. Nobody was, at the time.
+	Nathan: But back to the topic.
+	=> start
+- Show me a funny image
+	Nathan: Aight. I can do that.
+	do Utils.show_image("kotlecik_sebastian.png")
+	do Utils.get_image("kotlecik_sebastian_png").tween_size(Vector2.ONE,1.0,Vector2.ZERO)
+	do wait(1.0)
+	Nathan: Pretty funny, huh?
+	Nathan: No?
+	Nathan: That's no problem. I can show you another.
+	do Utils.show_image("kotlecik_sebastian.png")
+	set Utils.get_image("kotlecik_sebastian_png2").position = Vector2(64,64)
+	do Utils.get_image("kotlecik_sebastian_png2").tween_dissolve(1.0,1.0,0.0)
+	do wait(1.0)
+	do Utils.show_image("kotlecik_sebastian.png")
+	set Utils.get_image("kotlecik_sebastian_png3").scale = Vector2(0.5,0.5)
+	do! Utils.get_image("kotlecik_sebastian_png3").tween_pos(Vector2(240,120),1.0,Vector2(240,320))
+	do Utils.get_image("kotlecik_sebastian_png3").tween_alpha(1.0,1.0,0.0)
+	do wait(1.0)
+	do! Utils.get_image("kotlecik_sebastian_png").tween_size(Vector2.ONE*2.0,1.0)
+	do! Utils.get_image("kotlecik_sebastian_png2").tween_size(Vector2.ONE*2.0,1.0)
+	do Utils.get_image("kotlecik_sebastian_png3").tween_size(Vector2.ONE*2.0,1.0)
+	do! Utils.get_image("kotlecik_sebastian_png").tween_rot(0.0,1.0,360.0)
+	do! Utils.get_image("kotlecik_sebastian_png").tween_size(Vector2.ZERO,1.0)
+	do! Utils.get_image("kotlecik_sebastian_png2").tween_rot(0.0,1.0,-720.0)
+	do! Utils.get_image("kotlecik_sebastian_png2").tween_size(Vector2.ZERO,1.0)
+	do! Utils.get_image("kotlecik_sebastian_png3").tween_rot(0.0,1.0,720.0)
+	do Utils.get_image("kotlecik_sebastian_png3").tween_size(Vector2.ZERO,1.0)
+	do! Utils.hide_image("kotlecik_sebastian_png")
+	do! Utils.hide_image("kotlecik_sebastian_png2")
+	do Utils.hide_image("kotlecik_sebastian_png3")
+	do wait(1.0)
+
+=> END

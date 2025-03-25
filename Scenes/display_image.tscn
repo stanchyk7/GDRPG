@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://2lgltldkymjq"]
+
+[ext_resource type="Shader" uid="uid://jpb7mmtjmlj7" path="res://Scenes/Menus/transition.gdshader" id="1_nprsr"]
+[ext_resource type="Script" uid="uid://beai2fkuo2n27" path="res://image.gd" id="1_ogs27"]
+[ext_resource type="Texture2D" uid="uid://cs3rqsjdwcudx" path="res://Graphics/Transitions/noise.png" id="2_koua8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_koua8"]
+resource_local_to_scene = true
+shader = ExtResource("1_nprsr")
+shader_parameter/opacity = 1.0
+shader_parameter/fill = 1.0
+shader_parameter/heightMap = ExtResource("2_koua8")
+
+[node name="Sprite2D" type="Sprite2D"]
+material = SubResource("ShaderMaterial_koua8")
+script = ExtResource("1_ogs27")

@@ -2,7 +2,7 @@ extends Control
 
 var unpause = false
 
-@onready var base = $/root/Game/SubViewportContainer/SubViewport
+@onready var base = get_node(Constants.base_path)
 
 func resume():
 	unpause = false
@@ -23,24 +23,11 @@ func _on_load_pressed() -> void:
 	var path = GameStateService.load_game_state("user://rpg_save_game.json")
 	print(path)
 	if path:
-		GameStateService.on_scene_transitioning()
-		var wrld = load(path).instantiate()
-		base.get_child(-1).free()
-		base.add_child(wrld)
-	resume()
-
-func _on_to_world_pressed() -> void:
-	Utils.transfer("world")
-	resume()
-
-func _on_to_world_2_pressed() -> void:
-	Utils.transfer("world2")
+		Utils.transfer(path, Vector2i.MAX, true)
 	resume()
 
 func _on_to_menu_pressed() -> void:
-	var wrld = load("res://Scenes/Menus/main_menu.tscn").instantiate()
-	base.get_child(-1).free()
-	base.add_child(wrld)
+	Utils.transfer("../Menus/main_menu")
 	resume()
 
 func _on_resume_pressed() -> void:

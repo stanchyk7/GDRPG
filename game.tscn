@@ -1,21 +1,229 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2lsq21w8wqee"]
+[gd_scene load_steps=15 format=3 uid="uid://d2lsq21w8wqee"]
 
+[ext_resource type="Material" uid="uid://ci4yrmgxfv371" path="res://tt_material.tres" id="1_ryrav"]
 [ext_resource type="PackedScene" uid="uid://bncdy1bm3g2c4" path="res://Scenes/Menus/main_menu.tscn" id="1_xh43y"]
 [ext_resource type="Script" uid="uid://dva18birufxkw" path="res://Scenes/Menus/pause.gd" id="2_5oy7y"]
 [ext_resource type="Theme" uid="uid://bpwrfls6uwofv" path="res://Graphics/theme.tres" id="2_mwaka"]
+[ext_resource type="Script" uid="uid://ct7ih863w1ts0" path="res://xmenu_sub.gd" id="2_ryrav"]
+[ext_resource type="Material" uid="uid://dck60y0x6iq73" path="res://em_material.tres" id="3_eow3j"]
+[ext_resource type="Texture2D" uid="uid://ct6k0feqggovn" path="res://Graphics/tile.png" id="5_7jktm"]
+[ext_resource type="Material" uid="uid://c46o5onw4n6oj" path="res://ei_material.tres" id="5_j5wjh"]
+
+[sub_resource type="Animation" id="Animation_j5wjh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/fill")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.01]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath(".:material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_j5wjh")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/opacity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.01]
+}
+
+[sub_resource type="Animation" id="Animation_ryrav"]
+resource_name = "dissolve_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/fill")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.01, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/opacity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_eow3j"]
+resource_name = "dissolve_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/fill")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -0.01]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/opacity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_vef74"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.01, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/fill")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_hve3p"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -0.01]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/fill")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j5wjh"]
+_data = {
+&"RESET": SubResource("Animation_j5wjh"),
+&"dissolve_in": SubResource("Animation_ryrav"),
+&"dissolve_out": SubResource("Animation_eow3j"),
+&"fade_in": SubResource("Animation_vef74"),
+&"fade_out": SubResource("Animation_hve3p")
+}
 
 [node name="Game" type="Node2D"]
+material = ExtResource("1_ryrav")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="Base" type="SubViewportContainer" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="sub" type="SubViewport" parent="Base"]
 handle_input_locally = false
 size = Vector2i(320, 240)
 render_target_update_mode = 4
 
-[node name="main_menu" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_xh43y")]
+[node name="main_menu" parent="Base/sub" instance=ExtResource("1_xh43y")]
+
+[node name="ExtraMenu" type="SubViewportContainer" parent="."]
+process_mode = 3
+visible = false
+material = ExtResource("3_eow3j")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="sub" type="SubViewport" parent="ExtraMenu"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(320, 240)
+render_target_update_mode = 0
+script = ExtResource("2_ryrav")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ExtraMenu"]
+libraries = {
+&"": SubResource("AnimationLibrary_j5wjh")
+}
+
+[node name="ExtraImage" type="SubViewportContainer" parent="."]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="sub" type="SubViewport" parent="ExtraImage"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(320, 240)
+render_target_update_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ExtraImage"]
+libraries = {
+&"": SubResource("AnimationLibrary_j5wjh")
+}
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -62,6 +270,22 @@ text = "Load Game"
 layout_mode = 2
 focus_neighbor_top = NodePath("../load")
 text = "Main Menu"
+
+[node name="TransitionTexture" type="TextureRect" parent="."]
+process_mode = 3
+modulate = Color(0, 0, 0, 1)
+material = ExtResource("1_ryrav")
+custom_minimum_size = Vector2(320, 240)
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("5_7jktm")
+expand_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TransitionTexture"]
+libraries = {
+&"": SubResource("AnimationLibrary_j5wjh")
+}
 
 [connection signal="pressed" from="CanvasLayer/pause/VBoxContainer/resume" to="CanvasLayer/pause" method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/pause/VBoxContainer/save" to="CanvasLayer/pause" method="_on_save_pressed"]

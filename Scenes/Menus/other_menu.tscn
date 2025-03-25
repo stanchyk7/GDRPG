@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://f2eprhgx8fye"]
+
+[ext_resource type="Theme" uid="uid://bpwrfls6uwofv" path="res://Graphics/theme.tres" id="1_gt3n1"]
+[ext_resource type="Script" uid="uid://bdw5cuijek2s0" path="res://Scenes/Menus/other_menu.gd" id="2_gt3n1"]
+[ext_resource type="Texture2D" uid="uid://5nabt7ncthoo" path="res://Graphics/mapa.png" id="3_0rngy"]
+[ext_resource type="Texture2D" uid="uid://dy8hnjtvde4n1" path="res://Graphics/pin.png" id="4_r862c"]
+
+[node name="main_menu" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gt3n1")
+script = ExtResource("2_gt3n1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 240.0
+texture = ExtResource("3_0rngy")
+expand_mode = 1
+
+[node name="world1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 40.0
+offset_right = 111.0
+offset_bottom = 78.0
+focus_neighbor_right = NodePath("../world2")
+theme_override_font_sizes/font_size = 11
+text = "World 1"
+icon = ExtResource("4_r862c")
+flat = true
+icon_alignment = 2
+
+[node name="world2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 104.0
+offset_right = 123.0
+offset_bottom = 178.0
+focus_neighbor_left = NodePath("../world1")
+focus_neighbor_right = NodePath("../world3")
+theme_override_font_sizes/font_size = 11
+text = "World 2"
+icon = ExtResource("4_r862c")
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="world3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 120.0
+offset_right = 171.0
+offset_bottom = 194.0
+focus_neighbor_left = NodePath("../world2")
+focus_neighbor_right = NodePath("../exit")
+theme_override_font_sizes/font_size = 11
+text = "World 3"
+icon = ExtResource("4_r862c")
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 2
+
+[node name="exit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 200.0
+offset_right = 304.0
+offset_bottom = 224.0
+focus_neighbor_left = NodePath("../world3")
+text = "Exit map"
+
+[connection signal="pressed" from="world1" to="." method="_on_world_1_pressed"]
+[connection signal="pressed" from="world2" to="." method="_on_world_2_pressed"]
+[connection signal="pressed" from="world3" to="." method="_on_world_3_pressed"]
+[connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]

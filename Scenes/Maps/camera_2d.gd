@@ -7,6 +7,7 @@ extends Camera2D
 @onready var target_path = target.get_path() if target else null
 
 func _ready() -> void:
+	if not target: change_target(%CameraTarget)
 	$GameStateHelper.loading_data.connect(_on_loading_data)
 	
 func change_target(new_target: Node2D):
@@ -19,4 +20,4 @@ func _on_loading_data(data: Dictionary):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if target: position = lerp(position,target.position,lerp_weight) if lerp_self else target.position
+	position = lerp(position,target.position,lerp_weight) if lerp_self else target.position

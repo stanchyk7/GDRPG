@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dck60y0x6iq73"]
+
+[ext_resource type="Shader" uid="uid://jpb7mmtjmlj7" path="res://Scenes/Menus/transition.gdshader" id="1_ggmqm"]
+[ext_resource type="Texture2D" uid="uid://cs3rqsjdwcudx" path="res://Graphics/Transitions/noise.png" id="2_sic2h"]
+
+[resource]
+shader = ExtResource("1_ggmqm")
+shader_parameter/opacity = -0.01
+shader_parameter/fill = -0.01
+shader_parameter/heightMap = ExtResource("2_sic2h")
