@@ -18,6 +18,8 @@ A framework for Godot based on RPG Maker made to streamline making grid-based ga
 
 ## TODO
 
+- audio systems
+- doors and other specialized game elements
 - polish, polish, polish
 - make an actual game with it!
 
