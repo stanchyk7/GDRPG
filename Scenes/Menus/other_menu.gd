@@ -8,10 +8,12 @@ func _ready() -> void:
 	DialogueManager.show_dialogue_balloon(intro)
 
 func _on_world_1_pressed() -> void:
+	Utils.play_temp_audio("teleport.wav")
 	Utils.transfer("world", Vector2i(2,10))
 	_on_exit_pressed()
 
 func _on_world_2_pressed() -> void:
+	Utils.play_temp_audio("teleport.wav")
 	Utils.transfer("world2", Vector2i(2,10))
 	_on_exit_pressed()
 	

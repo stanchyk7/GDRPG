@@ -5,5 +5,6 @@
 
 [resource]
 shader = ExtResource("1_dhb4y")
+shader_parameter/opacity = 1.0
 shader_parameter/fill = 1.0
 shader_parameter/heightMap = ExtResource("2_e6wjj")

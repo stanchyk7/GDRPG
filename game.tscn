@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://d2lsq21w8wqee"]
+[gd_scene load_steps=16 format=3 uid="uid://d2lsq21w8wqee"]
 
 [ext_resource type="Material" uid="uid://ci4yrmgxfv371" path="res://tt_material.tres" id="1_ryrav"]
 [ext_resource type="PackedScene" uid="uid://bncdy1bm3g2c4" path="res://Scenes/Menus/main_menu.tscn" id="1_xh43y"]
 [ext_resource type="Script" uid="uid://dva18birufxkw" path="res://Scenes/Menus/pause.gd" id="2_5oy7y"]
 [ext_resource type="Theme" uid="uid://bpwrfls6uwofv" path="res://Graphics/theme.tres" id="2_mwaka"]
 [ext_resource type="Script" uid="uid://ct7ih863w1ts0" path="res://xmenu_sub.gd" id="2_ryrav"]
+[ext_resource type="Script" uid="uid://qtgdv3trjmff" path="res://music_player.gd" id="2_vef74"]
 [ext_resource type="Material" uid="uid://dck60y0x6iq73" path="res://em_material.tres" id="3_eow3j"]
 [ext_resource type="Texture2D" uid="uid://ct6k0feqggovn" path="res://Graphics/tile.png" id="5_7jktm"]
 [ext_resource type="Material" uid="uid://c46o5onw4n6oj" path="res://ei_material.tres" id="5_j5wjh"]
@@ -168,12 +169,18 @@ _data = {
 [node name="Game" type="Node2D"]
 material = ExtResource("1_ryrav")
 
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+script = ExtResource("2_vef74")
+
 [node name="Base" type="SubViewportContainer" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="sub" type="SubViewport" parent="Base"]
 handle_input_locally = false
+audio_listener_enable_2d = true
 size = Vector2i(320, 240)
 render_target_update_mode = 4
 
@@ -194,6 +201,7 @@ grow_vertical = 2
 [node name="sub" type="SubViewport" parent="ExtraMenu"]
 transparent_bg = true
 handle_input_locally = false
+audio_listener_enable_2d = true
 size = Vector2i(320, 240)
 render_target_update_mode = 0
 script = ExtResource("2_ryrav")

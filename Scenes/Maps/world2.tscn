@@ -1,15 +1,19 @@
-[gd_scene load_steps=9 format=4 uid="uid://65jrwx7rq4n5"]
+[gd_scene load_steps=12 format=4 uid="uid://65jrwx7rq4n5"]
 
 [ext_resource type="Script" uid="uid://dmmfss7d1va3v" path="res://Scenes/Pawns/pawn_manager.gd" id="1_pjpgy"]
+[ext_resource type="Script" uid="uid://dsewp6jrfi1q4" path="res://Scenes/Maps/world_2.gd" id="1_qhvix"]
 [ext_resource type="PackedScene" uid="uid://cglhr5rplmgyg" path="res://Scenes/Pawns/Variants/PawnAnim/player.tscn" id="2_wg5py"]
 [ext_resource type="PackedScene" uid="uid://ckjb27vmdsyhq" path="res://Scenes/Pawns/Variants/Event/Walker/walker.tscn" id="3_qml8k"]
 [ext_resource type="Resource" uid="uid://byw0ttdpm8q1q" path="res://Dialogue/test2.dialogue" id="4_0j6ri"]
 [ext_resource type="PackedScene" uid="uid://dbbki4j1pkc63" path="res://event_state_helper.tscn" id="5_qhvix"]
+[ext_resource type="PackedScene" uid="uid://cmh08qpxg1jy4" path="res://Scenes/Pawns/Variants/Event/Walker/Door/door.tscn" id="8_xm1a4"]
+[ext_resource type="Texture2D" uid="uid://bnm10fyadt0qc" path="res://Graphics/icon2.svg" id="9_d1n6d"]
 [ext_resource type="PackedScene" uid="uid://d3xeykecmo176" path="res://Scenes/Pawns/Variants/PawnAnim/actor.tscn" id="10_tcoqr"]
 [ext_resource type="TileSet" uid="uid://otamr5lhwu4o" path="res://Graphics/tileset.tres" id="13_7jqei"]
 [ext_resource type="TileSet" uid="uid://c5yrnubk0j57d" path="res://Graphics/Internal/internal.tres" id="14_dg4dn"]
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_qhvix")
 
 [node name="PawnManager" type="Node2D" parent="." node_paths=PackedStringArray("coll_manager", "pawn_coll_manager")]
 z_index = 1
@@ -31,6 +35,16 @@ collidable = true
 parent = NodePath("..")
 
 [node name="EventStateHelper" parent="PawnManager/Event4" instance=ExtResource("5_qhvix")]
+
+[node name="Door" parent="PawnManager" instance=ExtResource("8_xm1a4")]
+position = Vector2(24, 104)
+map = "world"
+where = Vector2i(1, 6)
+sfx = "teleport.wav"
+
+[node name="Sprite2D" type="Sprite2D" parent="PawnManager/Door"]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("9_d1n6d")
 
 [node name="Tilemaps" type="Node2D" parent="."]
 

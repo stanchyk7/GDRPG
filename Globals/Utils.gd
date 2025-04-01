@@ -4,6 +4,7 @@ extends Node
 @onready var extra_menu: SubViewport = get_node(Constants.extra_menu_path)
 @onready var extra_image: SubViewport = get_node(Constants.extra_image_path)
 @onready var transition_player: AnimationPlayer = get_node(Constants.transition_path)
+@onready var music_player: AudioStreamPlayer = get_node("/root/Game/MusicPlayer") # TODO find a better way to do this
 
 var image_template = preload("res://Scenes/display_image.tscn")
 
@@ -19,12 +20,12 @@ func world() -> Node2D:
 func manager() -> PawnManager:
 	return world().get_node("PawnManager")
 	
-func transfer(map: String, where: Vector2i = Vector2i.MAX, override_dir = false):
+func transfer(map: String, where: Vector2i = Vector2i.MAX, override_map_base_dir = false):
 	transition_player.play(Variables.transition+"_in")
 	await transition_player.animation_finished
 	if where != Vector2i.MAX: manager().get_pawn_by_name("Player").move_to(where, false)
 	GameStateService.on_scene_transitioning()
-	var wrld = load(map if override_dir else "res://Scenes/Maps/"+map+".tscn").instantiate()
+	var wrld = load(map if override_map_base_dir else "res://Scenes/Maps/"+map+".tscn").instantiate()
 	base.get_child(-1).free()
 	base.add_child(wrld)
 	transition_player.play(Variables.transition+"_out")
@@ -53,3 +54,24 @@ func hide_image(img_name: String = ""):
 			child.queue_free()
 	else:
 		extra_image.get_node(img_name).queue_free()
+		
+func play_temp_audio(audio_in: String):
+	var audio = load("res://Audio/" + audio_in)
+	if audio:
+		var audio_player = TemporaryAudioPlayer.new()
+		audio_player.stream = audio
+		audio_player.autoplay = true
+		add_child(audio_player)
+
+func force_play_music(audio_in: String):
+	var audio = load("res://Audio/" + audio_in)
+	if audio:
+		music_player.stream = audio
+		music_player.play()
+	
+func play_music(audio_in: String):
+	if music_player.stream:
+		if music_player.stream.resource_path != "res://Audio/" + audio_in:
+			force_play_music(audio_in)
+	else:
+		force_play_music(audio_in)

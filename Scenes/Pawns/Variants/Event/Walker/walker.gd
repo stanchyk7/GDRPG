@@ -6,7 +6,7 @@ var move_route: Array[Movement] = []
 @onready var max_moves = move_route.size()
 
 func _ready() -> void:
-	if $EventStateHelper: $EventStateHelper.loading_data.connect(_on_loading_data)
+	if get_node_or_null("EventStateHelper"): $EventStateHelper.loading_data.connect(_on_loading_data)
 	
 func _on_loading_data(data: Dictionary):
 	if is_talking:
@@ -26,7 +26,7 @@ func _on_loading_data(data: Dictionary):
 	move_tween.play()
 	await move_tween.finished
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if can_move():
 		if move_route:
 			

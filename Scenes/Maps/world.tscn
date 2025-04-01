@@ -1,9 +1,12 @@
-[gd_scene load_steps=17 format=4 uid="uid://desp8rgxud3dy"]
+[gd_scene load_steps=21 format=4 uid="uid://desp8rgxud3dy"]
 
 [ext_resource type="Script" uid="uid://dmmfss7d1va3v" path="res://Scenes/Pawns/pawn_manager.gd" id="1_1b3yd"]
 [ext_resource type="PackedScene" uid="uid://cglhr5rplmgyg" path="res://Scenes/Pawns/Variants/PawnAnim/player.tscn" id="1_ep713"]
 [ext_resource type="TileSet" uid="uid://otamr5lhwu4o" path="res://Graphics/tileset.tres" id="1_us7go"]
+[ext_resource type="Script" uid="uid://b74lusug45r01" path="res://Scenes/Maps/world.gd" id="1_vi3vx"]
 [ext_resource type="PackedScene" uid="uid://ckjb27vmdsyhq" path="res://Scenes/Pawns/Variants/Event/Walker/walker.tscn" id="3_qt5fr"]
+[ext_resource type="Script" uid="uid://c4beqkf1jtd6i" path="res://Scenes/Pawns/Variants/Event/event.gd" id="3_s0v22"]
+[ext_resource type="Resource" uid="uid://cwfaq0kk7r1or" path="res://Dialogue/intro.dialogue" id="4_fgwjc"]
 [ext_resource type="Resource" uid="uid://isriq6vhhdur" path="res://Movements/Variants/MoveBy/move_right.tres" id="4_qe4dn"]
 [ext_resource type="Script" uid="uid://ddex1fsjyv264" path="res://addons/game_state_saver/game_state_helper.gd" id="5_jjle6"]
 [ext_resource type="Resource" uid="uid://cg8u1x0w28hcu" path="res://Movements/Variants/MoveBy/move_down.tres" id="5_ngc2t"]
@@ -16,8 +19,10 @@
 [ext_resource type="TileSet" uid="uid://c5yrnubk0j57d" path="res://Graphics/Internal/internal.tres" id="10_jb4cg"]
 [ext_resource type="PackedScene" uid="uid://dbbki4j1pkc63" path="res://event_state_helper.tscn" id="10_ngc2t"]
 [ext_resource type="Script" uid="uid://b0ax07e0hopvk" path="res://Scenes/Maps/camera_2d.gd" id="11_6hr6o"]
+[ext_resource type="PackedScene" uid="uid://cmh08qpxg1jy4" path="res://Scenes/Pawns/Variants/Event/Walker/Door/door.tscn" id="14_utdyw"]
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_vi3vx")
 
 [node name="PawnManager" type="Node2D" parent="." node_paths=PackedStringArray("coll_manager", "pawn_coll_manager")]
 z_index = 1
@@ -25,6 +30,17 @@ y_sort_enabled = true
 script = ExtResource("1_1b3yd")
 coll_manager = NodePath("../CollisionManager")
 pawn_coll_manager = NodePath("../PawnCollisionManager")
+
+[node name="Intro" type="Node2D" parent="PawnManager"]
+script = ExtResource("3_s0v22")
+dialogue = ExtResource("4_fgwjc")
+trigger_method = 2
+default_move_route = Array[Object]([])
+metadata/_custom_type_script = "uid://c4beqkf1jtd6i"
+
+[node name="EventStateHelper" type="Node" parent="PawnManager/Intro"]
+script = ExtResource("5_jjle6")
+metadata/_custom_type_script = "uid://ddex1fsjyv264"
 
 [node name="Player" parent="PawnManager" instance=ExtResource("1_ep713")]
 position = Vector2(136, 120)
@@ -41,9 +57,9 @@ texture = ExtResource("8_r0r7l")
 [node name="EventStateHelper" parent="PawnManager/Event" instance=ExtResource("10_ngc2t")]
 
 [node name="Event2" parent="PawnManager" instance=ExtResource("3_qt5fr")]
+modulate = Color(1, 1, 1, 0.427451)
 position = Vector2(152, 136)
-collidable = true
-speed = 2.0
+dialogue = ExtResource("4_fgwjc")
 
 [node name="Actor" parent="PawnManager/Event2" node_paths=PackedStringArray("parent") instance=ExtResource("5_py2g1")]
 parent = NodePath("..")
@@ -76,6 +92,16 @@ collidable = true
 parent = NodePath("..")
 
 [node name="EventStateHelper" parent="PawnManager/Event4" instance=ExtResource("10_ngc2t")]
+
+[node name="Door" parent="PawnManager" instance=ExtResource("14_utdyw")]
+position = Vector2(24, 104)
+map = "world2"
+where = Vector2i(1, 6)
+sfx = "teleport.wav"
+
+[node name="Sprite2D" type="Sprite2D" parent="PawnManager/Door"]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("8_r0r7l")
 
 [node name="Tilemaps" type="Node2D" parent="."]
 
@@ -110,10 +136,12 @@ collision_enabled = false
 navigation_enabled = false
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+process_callback = 0
 limit_left = 0
 limit_top = 0
 limit_right = 2452
 limit_bottom = 2435
+editor_draw_limits = true
 script = ExtResource("11_6hr6o")
 target = NodePath("../PawnManager/Player")
 lerp_self = true

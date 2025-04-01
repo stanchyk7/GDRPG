@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmh08qpxg1jy4"]
+
+[ext_resource type="Script" uid="uid://cjgslub5p2huj" path="res://Scenes/Pawns/Variants/Event/Walker/Door/door.gd" id="1_cmbwb"]
+
+[node name="Door" type="Node2D"]
+script = ExtResource("1_cmbwb")
+trigger_method = 1
+default_move_route = Array[Object]([])
+
+[node name="Marker2D" type="Marker2D" parent="."]

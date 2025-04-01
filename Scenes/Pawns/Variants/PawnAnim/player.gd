@@ -13,6 +13,8 @@ var input_history: Array[String] = []
 
 func _ready() -> void:
 	if $PlayerStateHelper: $PlayerStateHelper.loading_data.connect(_on_loading_data)
+	DialogueManager.dialogue_started.connect(_on_dialogue_started)
+	DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
 	default_move_route = []
 	
 	print(manager.get_pawns_at(Utils.snapped_pos(position))[0].name)
@@ -27,15 +29,19 @@ func _on_loading_data(data: Dictionary):
 		is_talking = false
 	is_moving = false
 	
+func _on_dialogue_started(_resource: DialogueResource):
+	move_route = []
+	is_talking = true
+
+func _on_dialogue_ended(_resource: DialogueResource):
+	await get_tree().create_timer(0.02).timeout
+	is_talking = false
+	
 func get_ev_dialogue(ev: Array):
 	if ev: 
-		move_route = []
-		is_talking = true
-		if ev[0].actor: ev[0].actor.set_anim_direction(-cur_direction)
-		ev[0].trigger_dialogue()
-		await DialogueManager.dialogue_ended
-		await get_tree().create_timer(0.01).timeout
-		is_talking = false
+		if abs(ev[0].cur_direction) == abs(cur_direction):
+			if ev[0].actor: ev[0].actor.set_anim_direction(-cur_direction)
+			ev[0].trigger_dialogue()
 
 func _tween_pos_done():
 	super()

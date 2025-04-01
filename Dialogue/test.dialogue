@@ -1,4 +1,5 @@
 ~ start
+do Utils.manager().get_pawn_by_name("Event4").play_temp_audio("pleasing_bell.wav",true)
 Nathan: [[Hi|Hello|Howdy]], this is some dialogue.
 Nathan: Here are some choices.
 - First one

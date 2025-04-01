@@ -80,3 +80,10 @@ func change_sprite(new_texture: String):
 		var new_spr := Sprite2D.new()
 		add_child(new_spr)
 	spr.texture = null if new_texture.is_empty() else load("res://Graphics/"+new_texture)
+	
+func play_temp_audio(audio_in: String, spatial: bool = false):
+	var audio = load("res://Audio/" + audio_in)
+	var audio_player = TemporaryAudioPlayer2D.new() if spatial else TemporaryAudioPlayer.new()
+	audio_player.stream = audio
+	audio_player.autoplay = true
+	add_child(audio_player)

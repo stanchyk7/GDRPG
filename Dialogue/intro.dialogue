@@ -1,0 +1,6 @@
+~ start
+do! Utils.play_temp_audio("teleport.wav")
+Welcome to the demo game.
+if Utils.manager().get_node_or_null("Intro") != null:
+	do! Utils.manager().get_pawn_by_name("Intro").queue_free()
+=> END
