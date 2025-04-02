@@ -39,9 +39,8 @@ func _on_dialogue_ended(_resource: DialogueResource):
 	
 func get_ev_dialogue(ev: Array):
 	if ev: 
-		if abs(ev[0].cur_direction) == abs(cur_direction):
-			if ev[0].actor: ev[0].actor.set_anim_direction(-cur_direction)
-			ev[0].trigger_dialogue()
+		if ev[0].actor: ev[0].actor.set_anim_direction(-cur_direction)
+		ev[0].trigger_dialogue()
 
 func _tween_pos_done():
 	super()

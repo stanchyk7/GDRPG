@@ -1,5 +1,5 @@
 ~ start
-do Utils.manager().get_pawn_by_name("Event4").play_temp_audio("pleasing_bell.wav",true)
+do Utils.play_temp_audio("pleasing_bell.wav",Utils.manager().get_node("Event4"),true)
 Nathan: [[Hi|Hello|Howdy]], this is some dialogue.
 Nathan: Here are some choices.
 - First one
@@ -14,10 +14,10 @@ Nathan: Here are some choices.
 Nathan: For more information see the online documentation.
 Nathan: Now make a circle for me.
 do wait(1.0)
-do Utils.manager().get_pawn_by_name("Player").move_by(Vector2.UP)
-do Utils.manager().get_pawn_by_name("Player").move_by(Vector2.RIGHT)
-do Utils.manager().get_pawn_by_name("Player").move_by(Vector2.DOWN)
-do Utils.manager().get_pawn_by_name("Player").move_by(Vector2.LEFT)
+do Utils.manager().get_node("Player").move_by(Vector2.UP)
+do Utils.manager().get_node("Player").move_by(Vector2.RIGHT)
+do Utils.manager().get_node("Player").move_by(Vector2.DOWN)
+do Utils.manager().get_node("Player").move_by(Vector2.LEFT)
 do wait(1.0)
 Nathan: Okay, carry on.
 => END

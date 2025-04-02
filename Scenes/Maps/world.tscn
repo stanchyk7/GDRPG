@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://desp8rgxud3dy"]
+[gd_scene load_steps=25 format=4 uid="uid://desp8rgxud3dy"]
 
 [ext_resource type="Script" uid="uid://dmmfss7d1va3v" path="res://Scenes/Pawns/pawn_manager.gd" id="1_1b3yd"]
 [ext_resource type="PackedScene" uid="uid://cglhr5rplmgyg" path="res://Scenes/Pawns/Variants/PawnAnim/player.tscn" id="1_ep713"]
@@ -20,6 +20,17 @@
 [ext_resource type="PackedScene" uid="uid://dbbki4j1pkc63" path="res://event_state_helper.tscn" id="10_ngc2t"]
 [ext_resource type="Script" uid="uid://b0ax07e0hopvk" path="res://Scenes/Maps/camera_2d.gd" id="11_6hr6o"]
 [ext_resource type="PackedScene" uid="uid://cmh08qpxg1jy4" path="res://Scenes/Pawns/Variants/Event/Walker/Door/door.tscn" id="14_utdyw"]
+[ext_resource type="Script" uid="uid://dq8wl0yfd7l3d" path="res://Movements/Variants/wander.gd" id="17_ov7jo"]
+[ext_resource type="Script" uid="uid://c52onibjhd6hp" path="res://Movements/Variants/wait.gd" id="18_ov7jo"]
+
+[sub_resource type="Resource" id="Resource_78p4p"]
+script = ExtResource("17_ov7jo")
+metadata/_custom_type_script = "uid://dq8wl0yfd7l3d"
+
+[sub_resource type="Resource" id="Resource_jkuiv"]
+script = ExtResource("18_ov7jo")
+duration = 2.0
+metadata/_custom_type_script = "uid://c52onibjhd6hp"
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_vi3vx")
@@ -86,7 +97,9 @@ texture = ExtResource("6_r0r7l")
 modulate = Color(1, 0, 0, 1)
 position = Vector2(232, 136)
 dialogue = ExtResource("7_153uk")
+default_move_route = Array[Object]([SubResource("Resource_78p4p"), SubResource("Resource_jkuiv")])
 collidable = true
+speed = 0.5
 
 [node name="Actor" parent="PawnManager/Event4" node_paths=PackedStringArray("parent") instance=ExtResource("5_py2g1")]
 parent = NodePath("..")

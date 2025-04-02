@@ -7,6 +7,7 @@ var move_route: Array[Movement] = []
 
 func _ready() -> void:
 	if get_node_or_null("EventStateHelper"): $EventStateHelper.loading_data.connect(_on_loading_data)
+	coll_pos = Utils.snapped_pos(position)
 	
 func _on_loading_data(data: Dictionary):
 	if is_talking:

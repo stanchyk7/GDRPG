@@ -55,23 +55,32 @@ func hide_image(img_name: String = ""):
 	else:
 		extra_image.get_node(img_name).queue_free()
 		
-func play_temp_audio(audio_in: String):
+func play_temp_audio(audio_in: String,node: Node = self,spatial: bool = false):
 	var audio = load("res://Audio/" + audio_in)
 	if audio:
-		var audio_player = TemporaryAudioPlayer.new()
+		var audio_player = TemporaryAudioPlayer2D.new() if spatial else TemporaryAudioPlayer.new()
 		audio_player.stream = audio
 		audio_player.autoplay = true
-		add_child(audio_player)
+		node.add_child(audio_player)
 
-func force_play_music(audio_in: String):
+func force_play_music(audio_in: String,node: Node = self,spatial: bool = false):
 	var audio = load("res://Audio/" + audio_in)
 	if audio:
-		music_player.stream = audio
-		music_player.play()
+		var audio_player = AudioStreamPlayer2D.new() if spatial else AudioStreamPlayer.new()
+		audio_player.stream = audio
+		audio_player.autoplay = true
+		node.add_child(audio_player)
 	
-func play_music(audio_in: String):
+func play_music(audio_in: String,node: Node = self,spatial: bool = false):
 	if music_player.stream:
 		if music_player.stream.resource_path != "res://Audio/" + audio_in:
-			force_play_music(audio_in)
+			force_play_music(audio_in, node, spatial)
 	else:
-		force_play_music(audio_in)
+		force_play_music(audio_in, node, spatial)
+
+func pause_music(audio: String, node: Node = self):
+	node.get_node(audio).pause()
+	
+func stop_music(audio: String, node: Node = self):
+	node.get_node(audio).stop()
+	node.get_node(audio).queue_free()

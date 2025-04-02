@@ -1,3 +1,3 @@
 extends Node
 
-var transition = "fade"
+var transition = "dissolve"

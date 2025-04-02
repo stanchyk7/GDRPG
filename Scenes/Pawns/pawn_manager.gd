@@ -21,10 +21,10 @@ func get_pawn_by_name(name_in: String):
 	return get_children().filter(func(p): return p.name == name_in)[0]
 
 func get_pawns_at(position_in: Vector2i):
-	return get_children().filter(func(p): return Utils.snapped_pos(p.position) == position_in)
+	return get_children().filter(func(p): return p.coll_pos == position_in)
 
 func get_collidable_pawns_at(position_in: Vector2i):
-	return get_children().filter(func(p): return Utils.snapped_pos(p.position) == position_in and p.collidable)
+	return get_children().filter(func(p): return p.coll_pos == position_in and p.collidable)
 
 func get_talkable_pawns_at(position_in: Vector2i, trig_method: int):
-	return get_children().filter(func(p): return Utils.snapped_pos(p.position) == position_in and p is Event and p.trigger_method == trig_method)
+	return get_children().filter(func(p): return p.coll_pos == position_in and (p is Event and p.get("dialogue") or p is Door) and p.trigger_method == trig_method)
