@@ -63,24 +63,15 @@ func play_temp_audio(audio_in: String,node: Node = self,spatial: bool = false):
 		audio_player.autoplay = true
 		node.add_child(audio_player)
 
-func force_play_music(audio_in: String,node: Node = self,spatial: bool = false):
+func force_play_music(audio_in: String):
 	var audio = load("res://Audio/" + audio_in)
 	if audio:
-		var audio_player = AudioStreamPlayer2D.new() if spatial else AudioStreamPlayer.new()
-		audio_player.stream = audio
-		audio_player.autoplay = true
-		node.add_child(audio_player)
+		music_player.stream = audio
+		music_player.play()
 	
-func play_music(audio_in: String,node: Node = self,spatial: bool = false):
+func play_music(audio_in: String):
 	if music_player.stream:
 		if music_player.stream.resource_path != "res://Audio/" + audio_in:
-			force_play_music(audio_in, node, spatial)
+			force_play_music(audio_in)
 	else:
-		force_play_music(audio_in, node, spatial)
-
-func pause_music(audio: String, node: Node = self):
-	node.get_node(audio).pause()
-	
-func stop_music(audio: String, node: Node = self):
-	node.get_node(audio).stop()
-	node.get_node(audio).queue_free()
+		force_play_music(audio_in)
