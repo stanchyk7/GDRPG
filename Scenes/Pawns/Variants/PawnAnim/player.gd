@@ -57,7 +57,7 @@ func _physics_process(_delta):
 		if Input.is_action_just_pressed("ui_cancel"):
 			var pause = get_node(Constants.pause_path)
 			pause.visible = true
-			pause.get_node("VBoxContainer/resume").grab_focus()
+			pause.get_node("PanelContainer/MarginContainer/VBoxContainer/resume").grab_focus()
 			get_tree().paused = true
 		elif Input.is_action_just_pressed("ui_accept"):
 			var ev = manager.get_talkable_pawns_at(Utils.snapped_pos(position)+cur_direction, 0)

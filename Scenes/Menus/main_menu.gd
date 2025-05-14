@@ -3,9 +3,9 @@ extends Control
 @onready var path = GameStateService.load_game_state("user://rpg_save_game.json")
 
 func _ready():
-	$VBoxContainer/new_game.grab_focus()
-	$VBoxContainer/load_game.disabled = not path
-	$/root/Game/CanvasLayer/pause/VBoxContainer/load.disabled = not path
+	%new_game.grab_focus()
+	%load_game.disabled = not path
+	get_node(Constants.pause_path + "PanelContainer/MarginContainer/VBoxContainer/resume").disabled = not path
 	Utils.play_music("ambient1.ogg")
 
 func _on_new_game_pressed() -> void:

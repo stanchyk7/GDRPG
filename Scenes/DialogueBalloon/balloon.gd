@@ -104,7 +104,7 @@ func apply_dialogue_line() -> void:
 	character_label.text = tr(dialogue_line.character, "dialogue")
 	character_label.visible = not dialogue_line.character.is_empty()
 	
-	%CharacterPanel.visible = character_label.visible
+	#%CharacterPanel.visible = character_label.visible
 	
 	dialogue_label.hide()
 	dialogue_label.dialogue_line = dialogue_line

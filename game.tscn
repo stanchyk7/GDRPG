@@ -248,36 +248,50 @@ mouse_filter = 2
 theme = ExtResource("2_mwaka")
 script = ExtResource("2_5oy7y")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/pause"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/pause"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -108.0
-offset_right = 70.0
+offset_top = -90.0
+offset_right = 78.0
 grow_vertical = 0
+size_flags_horizontal = 4
 
-[node name="resume" type="Button" parent="CanvasLayer/pause/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/pause/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/pause/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="resume" type="Button" parent="CanvasLayer/pause/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../save")
 text = "Resume"
+flat = true
 
-[node name="save" type="Button" parent="CanvasLayer/pause/VBoxContainer"]
+[node name="save" type="Button" parent="CanvasLayer/pause/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../resume")
 focus_neighbor_bottom = NodePath("../load")
 text = "Save Game"
+flat = true
 
-[node name="load" type="Button" parent="CanvasLayer/pause/VBoxContainer"]
+[node name="load" type="Button" parent="CanvasLayer/pause/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../save")
 focus_neighbor_bottom = NodePath("../to_menu")
 text = "Load Game"
+flat = true
 
-[node name="to_menu" type="Button" parent="CanvasLayer/pause/VBoxContainer"]
+[node name="to_menu" type="Button" parent="CanvasLayer/pause/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../load")
 text = "Main Menu"
+flat = true
 
 [node name="TransitionTexture" type="TextureRect" parent="."]
 process_mode = 3
@@ -295,7 +309,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_j5wjh")
 }
 
-[connection signal="pressed" from="CanvasLayer/pause/VBoxContainer/resume" to="CanvasLayer/pause" method="_on_resume_pressed"]
-[connection signal="pressed" from="CanvasLayer/pause/VBoxContainer/save" to="CanvasLayer/pause" method="_on_save_pressed"]
-[connection signal="pressed" from="CanvasLayer/pause/VBoxContainer/load" to="CanvasLayer/pause" method="_on_load_pressed"]
-[connection signal="pressed" from="CanvasLayer/pause/VBoxContainer/to_menu" to="CanvasLayer/pause" method="_on_to_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/pause/PanelContainer/MarginContainer/VBoxContainer/resume" to="CanvasLayer/pause" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/pause/PanelContainer/MarginContainer/VBoxContainer/save" to="CanvasLayer/pause" method="_on_save_pressed"]
+[connection signal="pressed" from="CanvasLayer/pause/PanelContainer/MarginContainer/VBoxContainer/load" to="CanvasLayer/pause" method="_on_load_pressed"]
+[connection signal="pressed" from="CanvasLayer/pause/PanelContainer/MarginContainer/VBoxContainer/to_menu" to="CanvasLayer/pause" method="_on_to_menu_pressed"]

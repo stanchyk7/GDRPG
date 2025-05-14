@@ -36,22 +36,42 @@ text = "Game"
 label_settings = SubResource("LabelSettings_rwhaw")
 horizontal_alignment = 1
 
-[node name="new_game" type="Button" parent="VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="new_game" type="Button" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
 focus_neighbor_bottom = NodePath("../load_game")
 text = "New Game"
+flat = true
 
-[node name="load_game" type="Button" parent="VBoxContainer"]
+[node name="load_game" type="Button" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../new_game")
 focus_neighbor_bottom = NodePath("../quit")
 text = "Load Game"
+flat = true
 
-[node name="quit" type="Button" parent="VBoxContainer"]
+[node name="quit" type="Button" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../load_game")
 text = "Quit"
+flat = true
 
-[connection signal="pressed" from="VBoxContainer/new_game" to="." method="_on_new_game_pressed"]
-[connection signal="pressed" from="VBoxContainer/load_game" to="." method="_on_load_game_pressed"]
-[connection signal="pressed" from="VBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/new_game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/load_game" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]

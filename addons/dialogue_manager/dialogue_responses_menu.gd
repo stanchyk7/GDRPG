@@ -42,6 +42,7 @@ var responses: Array = []:
 					item.show()
 				else:
 					item = Button.new()
+					
 				item.name = "Response%d" % get_child_count()
 				if not response.is_allowed:
 					item.name = item.name + &"Disallowed"
