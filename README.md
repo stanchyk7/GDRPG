@@ -30,6 +30,7 @@ A framework for Godot based on RPG Maker made to streamline making grid-based ga
 
 ## Made with GDRPG
 
-- ![Veteran's Day Poppy](https://stanchyk7.itch.io/veterans-day-poppy) by stanchyk7
-- ![Rod of God](https://stanchyk7.itch.io/rod-of-god) by stanchyk7 and GriFFwix
+- Veteran's Day Poppy by stanchyk7 (https://stanchyk7.itch.io/veterans-day-poppy)
+- Rod of God by stanchyk7 and GriFFwix (https://stanchyk7.itch.io/rod-of-god)
+  
 Lemme know if you made something with GDRPG - it will be listed here
