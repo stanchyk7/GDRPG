@@ -38,14 +38,17 @@ var _freed_instanced_scene_save_and_loads:Array[GameStateHelper.SaveFreedInstanc
 # used when saved game is loaded - prevents current scene game state from being saved before changing scene
 var _skip_next_scene_transition_save := false
 
-@onready var base = get_node(Constants.base_path)
+@onready var base = get_tree().root
 
 func _ready() -> void:
 	# monitor whenever a node is added in the tree - we can tell when a new scene is loaded this way
 	if OK != get_tree().node_added.connect(_on_scene_tree_node_added):
 		printerr("GameStateService: could not connect to scene tree node_added signal!")
+		
+	if get_node_or_null(Constants.base_path):
+		base = get_node(Constants.base_path)
 	
-	var current_scene := base.get_child(-1)
+	var current_scene = base.get_child(-1)
 	if current_scene != null:
 		_on_scene_tree_node_added(current_scene)
 

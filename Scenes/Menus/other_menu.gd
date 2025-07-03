@@ -6,6 +6,8 @@ extends Control
 func _ready() -> void:
 	get_tree().paused = true
 	DialogueManager.show_dialogue_balloon(intro)
+	await DialogueManager.dialogue_ended
+	$world1.grab_focus()
 
 func _on_world_1_pressed() -> void:
 	Utils.play_temp_audio("teleport.wav")

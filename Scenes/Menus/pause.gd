@@ -17,11 +17,11 @@ func _input(event: InputEvent) -> void:
 			unpause = true
 
 func _on_save_pressed() -> void:
-	GameStateService.save_game_state("user://rpg_save_game.json")
+	GameStateService.save_game_state(Constants.save_game_path)
 	$VBoxContainer/load.disabled = false
 
 func _on_load_pressed() -> void:
-	var path = GameStateService.load_game_state("user://rpg_save_game.json")
+	var path = GameStateService.load_game_state(Constants.save_game_path)
 	print(path)
 	if path:
 		Utils.transfer(path, Vector2i.MAX, true)

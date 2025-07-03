@@ -87,3 +87,7 @@ func play_temp_audio(audio_in: String, spatial: bool = false):
 	audio_player.stream = audio
 	audio_player.autoplay = true
 	add_child(audio_player)
+
+func turn(dir: Vector2i):
+	if actor:
+		actor.set_anim_direction(dir)

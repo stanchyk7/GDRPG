@@ -1,3 +1,3 @@
 extends Node
 
-var transition = "dissolve"
+var transition = ProjectSettings.get_setting("GDRPG/transition")

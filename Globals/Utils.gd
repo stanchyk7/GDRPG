@@ -4,9 +4,18 @@ extends Node
 @onready var extra_menu: SubViewport = get_node(Constants.extra_menu_path)
 @onready var extra_image: SubViewport = get_node(Constants.extra_image_path)
 @onready var transition_player: AnimationPlayer = get_node(Constants.transition_path)
-@onready var music_player: AudioStreamPlayer = get_node("/root/Game/MusicPlayer") # TODO find a better way to do this
+@onready var music_player: AudioStreamPlayer = get_node(Constants.music_player_path) # TODO find a better way to do this
+
+@onready var world: Node2D: 
+	get: 
+		return get_node(Constants.base_path).get_child(-1)
+
+@onready var manager: PawnManager: 
+	get: 
+		return world.get_node_or_null("PawnManager")
 
 var image_template = preload("res://Scenes/display_image.tscn")
+var utility_num := 0.0
 
 func snapped_pos(pos: Vector2) -> Vector2i:
 	return Vector2i(floor(pos/Constants.tile_size))
@@ -14,16 +23,12 @@ func snapped_pos(pos: Vector2) -> Vector2i:
 func unsnapped_pos(pos: Vector2i) -> Vector2:
 	return Vector2(pos)*Constants.tile_size+Constants.tile_size/2.0*Vector2.ONE
 	
-func world() -> Node2D:
-	return get_node(Constants.base_path).get_child(-1)
-
-func manager() -> PawnManager:
-	return world().get_node("PawnManager")
-	
 func transfer(map: String, where: Vector2i = Vector2i.MAX, override_map_base_dir = false):
 	transition_player.play(Variables.transition+"_in")
 	await transition_player.animation_finished
-	if where != Vector2i.MAX: manager().get_pawn_by_name("Player").move_to(where, false)
+	if manager:
+		var player = manager.get_node_or_null("Player")
+		if where != Vector2i.MAX and player: player.move_to(where, false)
 	GameStateService.on_scene_transitioning()
 	var wrld = load(map if override_map_base_dir else "res://Scenes/Maps/"+map+".tscn").instantiate()
 	base.get_child(-1).free()

@@ -1,11 +1,11 @@
 extends Control
 
-@onready var path = GameStateService.load_game_state("user://rpg_save_game.json")
+@onready var path = GameStateService.load_game_state(Constants.save_game_path)
 
 func _ready():
 	%new_game.grab_focus()
 	%load_game.disabled = not path
-	get_node(Constants.pause_path + "PanelContainer/MarginContainer/VBoxContainer/resume").disabled = not path
+	get_node(Constants.pause_path + "PanelContainer/MarginContainer/VBoxContainer/load").disabled = not path
 	Utils.play_music("ambient1.ogg")
 
 func _on_new_game_pressed() -> void:

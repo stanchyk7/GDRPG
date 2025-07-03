@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://5nabt7ncthoo" path="res://Graphics/mapa.png" id="3_0rngy"]
 [ext_resource type="Texture2D" uid="uid://dy8hnjtvde4n1" path="res://Graphics/pin.png" id="4_r862c"]
 
-[node name="main_menu" type="Control"]
+[node name="map" type="Control"]
 process_mode = 2
 layout_mode = 3
 anchors_preset = 15
@@ -30,6 +30,8 @@ offset_top = 40.0
 offset_right = 111.0
 offset_bottom = 78.0
 focus_neighbor_right = NodePath("../world2")
+focus_neighbor_bottom = NodePath("../world2")
+focus_next = NodePath("../world2")
 theme_override_font_sizes/font_size = 11
 text = "World 1"
 icon = ExtResource("4_r862c")
@@ -43,7 +45,11 @@ offset_top = 104.0
 offset_right = 123.0
 offset_bottom = 178.0
 focus_neighbor_left = NodePath("../world1")
+focus_neighbor_top = NodePath("../world1")
 focus_neighbor_right = NodePath("../world3")
+focus_neighbor_bottom = NodePath("../world3")
+focus_next = NodePath("../world3")
+focus_previous = NodePath("../world1")
 theme_override_font_sizes/font_size = 11
 text = "World 2"
 icon = ExtResource("4_r862c")
@@ -58,7 +64,11 @@ offset_top = 120.0
 offset_right = 171.0
 offset_bottom = 194.0
 focus_neighbor_left = NodePath("../world2")
+focus_neighbor_top = NodePath("../world2")
 focus_neighbor_right = NodePath("../exit")
+focus_neighbor_bottom = NodePath("../exit")
+focus_next = NodePath("../exit")
+focus_previous = NodePath("../world2")
 theme_override_font_sizes/font_size = 11
 text = "World 3"
 icon = ExtResource("4_r862c")

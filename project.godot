@@ -11,6 +11,7 @@ config_version=5
 [GDRPG]
 
 transition="dissolve"
+save_game_path="user://rpg_save_game.json"
 tile_size=16
 
 [application]
